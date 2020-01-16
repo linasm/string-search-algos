@@ -8,11 +8,11 @@ import search.engine.SearchProcessor
 object ShiftingBitMask {
 
   final class Processor(
-      private val bitMasks: Array[Long],
-      private val successBitMask: Long,
+      bitMasks: Array[Long],
+      successBitMask: Long,
       override val needleLength: Int) extends SearchProcessor {
 
-    private var currentMask = 0L
+    private[this] var currentMask = 0L
 
     override def process(value: Byte): Boolean = {
       currentMask = ((currentMask << 1) | 1) & bitMasks(toUnsignedInt(value))
@@ -22,9 +22,9 @@ object ShiftingBitMask {
   }
 
   final class Context(
-      val bitMasks: Array[Long],
-      val successBitMask: Long,
-      val needleLength: Int) {
+      bitMasks: Array[Long],
+      successBitMask: Long,
+      needleLength: Int) {
 
       def newProcessor: Processor = new Processor(bitMasks, successBitMask, needleLength)
 
