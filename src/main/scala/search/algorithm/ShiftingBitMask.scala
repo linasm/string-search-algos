@@ -2,7 +2,7 @@ package search.algorithm
 
 import java.lang.Byte.toUnsignedInt
 
-import search.engine.SearchProcessor
+import search.engine.{SearchContext, SearchProcessor}
 
 
 object ShiftingBitMask {
@@ -24,9 +24,10 @@ object ShiftingBitMask {
   final class Context(
       bitMasks: Array[Long],
       successBitMask: Long,
-      needleLength: Int) {
+      needleLength: Int)
+    extends SearchContext {
 
-      def newProcessor: Processor = new Processor(bitMasks, successBitMask, needleLength)
+      override def newProcessor: Processor = new Processor(bitMasks, successBitMask, needleLength)
 
   }
 

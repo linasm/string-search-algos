@@ -1,6 +1,6 @@
 package search.algorithm
 
-import search.engine.SearchProcessor
+import search.engine.{SearchContext, SearchProcessor}
 
 
 object KnuthMorrisPratt {
@@ -29,9 +29,10 @@ object KnuthMorrisPratt {
 
   final class Context(
       needle: Array[Byte],
-      next: Array[Int]) {
+      next: Array[Int])
+    extends SearchContext {
 
-      def newProcessor: Processor = new Processor(needle, next)
+      override def newProcessor: Processor = new Processor(needle, next)
 
   }
 

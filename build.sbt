@@ -1,7 +1,9 @@
-name := "string-search-algos"
+import sbt.Keys._
 
-version := "0.1"
-
-scalaVersion := "2.13.1"
-
-enablePlugins(JmhPlugin)
+lazy val root = (project in file(".")).
+  enablePlugins(JmhPlugin).
+  settings(
+    name := "string-search-algos",
+    version := "1.0",
+    scalaVersion := "2.13.1"
+  )

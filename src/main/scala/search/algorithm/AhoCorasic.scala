@@ -2,8 +2,9 @@ package search.algorithm
 
 import java.lang.Byte.toUnsignedInt
 
-import search.engine.MultiSearchProcessor
+import search.engine.{MultiSearchContext, MultiSearchProcessor}
 
+import scala.annotation.varargs
 import scala.collection.mutable
 
 
@@ -29,9 +30,9 @@ object AhoCorasic {
 
   }
 
-  final class Context(trieRoot: TrieNode, needleLengths: Array[Int]) {
+  final class Context(trieRoot: TrieNode, needleLengths: Array[Int]) extends MultiSearchContext {
 
-      def newProcessor: Processor = new Processor(trieRoot, needleLengths)
+      override def newProcessor: Processor = new Processor(trieRoot, needleLengths)
 
   }
 
@@ -43,6 +44,7 @@ object AhoCorasic {
     def hasChildFor(ch: Int): Boolean = children(ch) != null
   }
 
+  @varargs
   def apply(needles: Array[Byte]*): Context = {
 
     val trieRoot = buildTrie(needles)
