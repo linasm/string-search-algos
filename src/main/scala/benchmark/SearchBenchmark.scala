@@ -47,29 +47,19 @@ class SearchBenchmark {
   }
 
   @Benchmark
-  def knuthMorrisPratt(): Int = {
-    SearchEngine.indexOf(haystackBytes, kmpContext.newProcessor)
-  }
+  def knuthMorrisPratt = SearchEngine.indexOf(haystackBytes, kmpContext.newProcessor)
 
   @Benchmark
-  def shiftingBitMask(): Int = {
-    SearchEngine.indexOf(haystackBytes, shiftingBitMaskContext.newProcessor)
-  }
+  def shiftingBitMask = SearchEngine.indexOf(haystackBytes, shiftingBitMaskContext.newProcessor)
 
   @Benchmark
-  def ahoCorasic(): Int = {
-    SearchEngine.indexOf(haystackBytes, ahoCorasicContext.newProcessor)
-  }
+  def ahoCorasic = SearchEngine.indexOf(haystackBytes, ahoCorasicContext.newProcessor)
 
   @Benchmark
-  def javaIndexOf(): Int = {
-    haystackStr.indexOf(needleStr)
-  }
+  def javaIndexOf = haystackStr.indexOf(needleStr)
 
   @Benchmark
-  def scalaIndexOfSlice(): Int = {
-    haystackBytes.indexOfSlice(needleBytes)
-  }
+  def scalaIndexOfSlice = haystackBytes.indexOfSlice(needleBytes)
 
 }
 
