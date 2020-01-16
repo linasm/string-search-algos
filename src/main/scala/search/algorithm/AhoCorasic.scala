@@ -1,0 +1,91 @@
+package search.algorithm
+
+import search.engine.SearchProcessor
+import java.lang.Byte.toUnsignedInt
+import scala.collection.mutable
+
+
+object AhoCorasic {
+
+  final class Processor(trieRoot: TrieNode, needleLengths: Array[Int]) extends SearchProcessor {
+
+    private[this] var currentNode = trieRoot
+    private[this] var foundNeedleId = -1
+
+    override def process(value: Byte): Boolean = {
+      currentNode = currentNode.children(toUnsignedInt(value))
+      foundNeedleId = currentNode.matchFor
+
+      foundNeedleId == -1
+    }
+
+    override def needleLength: Int = {
+      if (foundNeedleId >= 0) needleLengths(foundNeedleId) else 0
+    }
+
+    def getFoundNeedleId: Int = foundNeedleId
+
+  }
+
+  final class Context(trieRoot: TrieNode, needleLengths: Array[Int]) {
+
+      def newProcessor: Processor = new Processor(trieRoot, needleLengths)
+
+  }
+
+  private val AlphabetSize = 256
+
+  private class TrieNode {
+    val children: Array[TrieNode] = Array.ofDim(AlphabetSize)
+    var matchFor: Int = -1
+    def hasChildFor(ch: Int): Boolean = children(ch) != null
+  }
+
+  def apply(needles: Array[Byte]*): Context = {
+
+    val trieRoot = buildTrie(needles)
+    linkSuffixes(trieRoot)
+
+    new Context(trieRoot, needles.toArray.map(_.length))
+  }
+
+  private def buildTrie(needles: Seq[Array[Byte]]): TrieNode = {
+
+    val trieRoot = new TrieNode
+
+    for (stringId <- needles.indices) {
+      val str = needles(stringId)
+      var currentNode = trieRoot
+      for (ch0 <- str) {
+        val ch = ch0
+        if (!currentNode.hasChildFor(ch)) {
+          currentNode.children(ch) = new TrieNode
+        }
+        currentNode = currentNode.children(ch)
+      }
+      currentNode.matchFor = stringId
+    }
+    trieRoot
+  }
+
+  private def linkSuffixes(trieRoot: TrieNode): Unit = {
+
+    val queue = mutable.Queue(trieRoot)
+    val suffixLinks = mutable.AnyRefMap.empty[TrieNode, TrieNode]
+
+    while (queue.nonEmpty) {
+      val v = queue.dequeue()
+      val u = suffixLinks.getOrElse(v, v)
+      if (v.matchFor == -1) v.matchFor = u.matchFor
+      for (ch <- 0 until AlphabetSize) {
+        if (v.hasChildFor(ch)) {
+          suffixLinks(v.children(ch)) = if (suffixLinks.contains(v) && u.hasChildFor(ch)) u.children(ch) else trieRoot
+          queue += v.children(ch)
+        } else {
+          v.children(ch) = if (u.hasChildFor(ch)) u.children(ch) else trieRoot
+        }
+      }
+    }
+  }
+
+}
