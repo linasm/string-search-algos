@@ -1,13 +1,15 @@
 package search.algorithm
 
-import search.engine.SearchProcessor
 import java.lang.Byte.toUnsignedInt
+
+import search.engine.MultiSearchProcessor
+
 import scala.collection.mutable
 
 
 object AhoCorasic {
 
-  final class Processor(trieRoot: TrieNode, needleLengths: Array[Int]) extends SearchProcessor {
+  final class Processor(trieRoot: TrieNode, needleLengths: Array[Int]) extends MultiSearchProcessor {
 
     private[this] var currentNode = trieRoot
     private[this] var foundNeedleId = -1
@@ -23,7 +25,7 @@ object AhoCorasic {
       if (foundNeedleId >= 0) needleLengths(foundNeedleId) else 0
     }
 
-    def getFoundNeedleId: Int = foundNeedleId
+    override def getFoundNeedleId: Int = foundNeedleId
 
   }
 
