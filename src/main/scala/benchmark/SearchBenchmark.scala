@@ -47,13 +47,22 @@ class SearchBenchmark {
   }
 
   @Benchmark
-  def knuthMorrisPratt = SearchEngine.indexOf(haystackBytes, kmpContext.newProcessor)
+  def kmpPrecomputed = SearchEngine.indexOf(haystackBytes, kmpContext.newProcessor)
 
   @Benchmark
-  def shiftingBitMask = SearchEngine.indexOf(haystackBytes, shiftingBitMaskContext.newProcessor)
+  def shiftingBitMaskPrecomputed = SearchEngine.indexOf(haystackBytes, shiftingBitMaskContext.newProcessor)
 
   @Benchmark
-  def ahoCorasic = SearchEngine.indexOf(haystackBytes, ahoCorasicContext.newProcessor)
+  def ahoCorasicPrecomputed = SearchEngine.indexOf(haystackBytes, ahoCorasicContext.newProcessor)
+
+  @Benchmark
+  def kmpAdHoc = SearchEngine.indexOf(haystackBytes, KnuthMorrisPratt(needleBytes).newProcessor)
+
+  @Benchmark
+  def shiftingBitMaskAdHoc = SearchEngine.indexOf(haystackBytes, ShiftingBitMask(needleBytes).newProcessor)
+
+  @Benchmark
+  def ahoCorasicAdHoc = SearchEngine.indexOf(haystackBytes, AhoCorasic(needleBytes).newProcessor)
 
   @Benchmark
   def javaIndexOf = haystackStr.indexOf(needleStr)

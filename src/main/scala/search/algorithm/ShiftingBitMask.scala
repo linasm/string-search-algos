@@ -41,9 +41,13 @@ object ShiftingBitMask {
 
     val bitMasks = Array.ofDim[Long](256)
     var bit = 1L
-    for (c <- needle) {
-      bitMasks(toUnsignedInt(c)) |= bit
+    var i = 0
+
+    while (i < needle.length) {
+      val c = toUnsignedInt(needle(i))
+      bitMasks(c) |= bit
       bit <<= 1
+      i += 1
     }
 
     bitMasks
