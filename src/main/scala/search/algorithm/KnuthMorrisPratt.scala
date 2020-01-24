@@ -7,7 +7,8 @@ object KnuthMorrisPratt extends SearchAlgorithm {
 
   final class Processor(
       needle: Array[Byte],
-      jumpTable: Array[Int]) extends SearchProcessor {
+      jumpTable: Array[Int])
+    extends SearchProcessor {
 
     private[this] var j = 0
 
@@ -32,10 +33,10 @@ object KnuthMorrisPratt extends SearchAlgorithm {
 
   final class Context(
       needle: Array[Byte],
-      next: Array[Int])
+      jumpTable: Array[Int])
     extends SearchContext {
 
-      override def newProcessor: Processor = new Processor(needle, next)
+      override def newProcessor: Processor = new Processor(needle, jumpTable)
 
   }
 
