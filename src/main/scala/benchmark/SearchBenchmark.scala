@@ -2,6 +2,7 @@ package benchmark
 
 import java.util.concurrent.TimeUnit
 
+import com.google.common.primitives.Bytes
 import org.openjdk.jmh.annotations._
 import search.algorithm._
 import search.engine._
@@ -73,6 +74,10 @@ class SearchBenchmark {
   @Benchmark
   @CompilerControl(CompilerControl.Mode.DONT_INLINE)
   def javaIndexOf = haystackStr.indexOf(needleStr)
+
+  @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
+  def guavaIndexOf = Bytes.indexOf(haystackBytes, needleBytes)
 
   @Benchmark
   @CompilerControl(CompilerControl.Mode.DONT_INLINE)
