@@ -5,7 +5,7 @@ import java.lang.Byte.toUnsignedInt
 import search.engine.{SearchContext, SearchProcessor}
 
 
-object ShiftingBitMask {
+object ShiftingBitMask extends SearchAlgorithm {
 
   final class Processor(
       bitMasks: Array[Long],
@@ -31,7 +31,7 @@ object ShiftingBitMask {
 
   }
 
-  def apply(needle: Array[Byte]): Context = new Context(
+  override def apply(needle: Array[Byte]): Context = new Context(
     bitMasks = computeBitMasks(needle),
     successBitMask = computeSuccessBitMask(needle),
     needleLength = needle.length)

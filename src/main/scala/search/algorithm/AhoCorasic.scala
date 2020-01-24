@@ -8,7 +8,7 @@ import scala.annotation.varargs
 import scala.collection.mutable
 
 
-object AhoCorasic {
+object AhoCorasic extends MultiSearchAlgorithm {
 
   final class Processor(trieRoot: TrieNode, needleLengths: Array[Int]) extends MultiSearchProcessor {
 
@@ -45,13 +45,15 @@ object AhoCorasic {
   }
 
   @varargs
-  def apply(needles: Array[Byte]*): Context = {
+  override def apply(needles: Array[Byte]*): Context = {
 
     val trieRoot = buildTrie(needles)
     linkSuffixes(trieRoot)
 
     new Context(trieRoot, needles.toArray.map(_.length))
   }
+
+  override def apply(needle: Array[Byte]): Context = apply(Seq(needle): _*)
 
   private def buildTrie(needles: Seq[Array[Byte]]): TrieNode = {
 
@@ -61,7 +63,7 @@ object AhoCorasic {
       val str = needles(stringId)
       var currentNode = trieRoot
       for (ch0 <- str) {
-        val ch = ch0
+        val ch = toUnsignedInt(ch0)
         if (!currentNode.hasChildFor(ch)) {
           currentNode.children(ch) = new TrieNode
         }

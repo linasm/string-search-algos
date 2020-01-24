@@ -47,34 +47,42 @@ class SearchBenchmark {
   }
 
   @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
   def kmpPrecomputed = SearchEngine.indexOf(haystackBytes, kmpContext.newProcessor)
 
   @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
   def shiftingBitMaskPrecomputed = SearchEngine.indexOf(haystackBytes, shiftingBitMaskContext.newProcessor)
 
   @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
   def ahoCorasicPrecomputed = SearchEngine.indexOf(haystackBytes, ahoCorasicContext.newProcessor)
 
   @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
   def kmpAdHoc = SearchEngine.indexOf(haystackBytes, KnuthMorrisPratt(needleBytes).newProcessor)
 
   @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
   def shiftingBitMaskAdHoc = SearchEngine.indexOf(haystackBytes, ShiftingBitMask(needleBytes).newProcessor)
 
   @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
   def ahoCorasicAdHoc = SearchEngine.indexOf(haystackBytes, AhoCorasic(needleBytes).newProcessor)
 
   @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
   def javaIndexOf = haystackStr.indexOf(needleStr)
 
   @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
   def scalaIndexOfSlice = haystackBytes.indexOfSlice(needleBytes)
 
 }
 
 object SearchBenchmark {
 
-  val Hamlet = """
+  private val Hamlet = """
       |To be or not to be—that is the question:
       |Whether ’tis nobler in the mind to suffer
       |The slings and arrows of outrageous fortune,

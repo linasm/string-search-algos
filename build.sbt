@@ -7,3 +7,5 @@ lazy val root = (project in file(".")).
     version := "1.0",
     scalaVersion := "2.13.1"
   )
+
+libraryDependencies += "org.scalacheck" %% "scalacheck" % "1.14.1" % "test"
