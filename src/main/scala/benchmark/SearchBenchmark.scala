@@ -49,31 +49,7 @@ class SearchBenchmark {
 
   @Benchmark
   @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-  def kmpPrecomputed = SearchEngine.indexOf(haystackBytes, kmpContext.newProcessor)
-
-  @Benchmark
-  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-  def shiftingBitMaskPrecomputed = SearchEngine.indexOf(haystackBytes, shiftingBitMaskContext.newProcessor)
-
-  @Benchmark
-  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-  def ahoCorasicPrecomputed = SearchEngine.indexOf(haystackBytes, ahoCorasicContext.newProcessor)
-
-  @Benchmark
-  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-  def kmpAdHoc = SearchEngine.indexOf(haystackBytes, KnuthMorrisPratt(needleBytes).newProcessor)
-
-  @Benchmark
-  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-  def shiftingBitMaskAdHoc = SearchEngine.indexOf(haystackBytes, ShiftingBitMask(needleBytes).newProcessor)
-
-  @Benchmark
-  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-  def ahoCorasicAdHoc = SearchEngine.indexOf(haystackBytes, AhoCorasic(needleBytes).newProcessor)
-
-  @Benchmark
-  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-  def javaIndexOf = haystackStr.indexOf(needleStr)
+  def ahoCorasic = SearchEngine.indexOf(haystackBytes, ahoCorasicContext.newProcessor)
 
   @Benchmark
   @CompilerControl(CompilerControl.Mode.DONT_INLINE)
@@ -81,7 +57,19 @@ class SearchBenchmark {
 
   @Benchmark
   @CompilerControl(CompilerControl.Mode.DONT_INLINE)
+  def javaIndexOf = haystackStr.indexOf(needleStr)
+
+  @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
+  def kmp = SearchEngine.indexOf(haystackBytes, kmpContext.newProcessor)
+
+  @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
   def scalaIndexOfSlice = haystackBytes.indexOfSlice(needleBytes)
+
+  @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
+  def shiftingBitMask = SearchEngine.indexOf(haystackBytes, shiftingBitMaskContext.newProcessor)
 
 }
 
