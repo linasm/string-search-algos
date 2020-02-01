@@ -32,8 +32,8 @@ class SearchBenchmark {
   def setup(): Unit = {
     val (haystack, needle) = searchInput match {
       case WORST_CASE =>
-        ("A" * 255 + "B", "A" * 63 + "B")
-      case HAMLET =>
+        ("A" * 1489 + "B", "A" * 63 + "B")
+      case REGULAR =>
         (Hamlet, "not there")
     }
 

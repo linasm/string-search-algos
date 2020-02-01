@@ -1,6 +1,6 @@
 package benchmark;
 
 public enum SearchInput {
-  WORST_CASE,
-  HAMLET
+  REGULAR,
+  WORST_CASE
 }
