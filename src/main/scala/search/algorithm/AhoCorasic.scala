@@ -13,20 +13,18 @@ object AhoCorasic extends MultiSearchAlgorithm {
   final class Processor(trieRoot: TrieNode, needleLengths: Array[Int]) extends MultiSearchProcessor {
 
     private[this] var currentNode = trieRoot
-    private[this] var foundNeedleId = -1
 
     override def process(value: Byte): Boolean = {
       currentNode = currentNode.children(toUnsignedInt(value))
-      foundNeedleId = currentNode.matchFor
-
-      foundNeedleId == -1
+      currentNode.matchFor == -1
     }
 
     override def needleLength: Int = {
+      val foundNeedleId = getFoundNeedleId
       if (foundNeedleId >= 0) needleLengths(foundNeedleId) else 0
     }
 
-    override def getFoundNeedleId: Int = foundNeedleId
+    override def getFoundNeedleId: Int = currentNode.matchFor
 
   }
 
