@@ -3,13 +3,8 @@ package search.engine
 object SearchEngine {
 
   sealed trait MultiSearchResult
-
-  object MultiSearchResult {
-
-    case class Found(foundAt: Int, foundNeedleId: Int) extends MultiSearchResult
-    case object NotFound extends MultiSearchResult
-
-  }
+  case class Found(foundAt: Int, foundNeedleId: Int) extends MultiSearchResult
+  case object NotFound extends MultiSearchResult
 
   def indexOf(haystack: Array[Byte], processor: SearchProcessor, from: Int = 0): Int = {
 
@@ -23,8 +18,8 @@ object SearchEngine {
 
     val matchAt = indexOfImpl(haystack, processor, from)
 
-    if (matchAt < 0) MultiSearchResult.NotFound
-    else MultiSearchResult.Found(
+    if (matchAt < 0) NotFound
+    else Found(
       foundAt = matchAt - processor.needleLength + 1,
       foundNeedleId = processor.getFoundNeedleId)
   }
