@@ -1,11 +1,12 @@
-import search.algorithm._
-import search.engine._
+import java.util.regex.Pattern
 
-val needle = "cad".getBytes()
-val needle2 = "r".getBytes()
-val haystack = "abracadabra".getBytes()
+val needle = "A" * 500000 + "B"
+val haystack = "A" * 1000000 + "B"
 
-val context = AhoCorasic(needle, needle2)
-val processor = context.newProcessor
+// slow! haystack.indexOf(needle)
 
-SearchEngine.indexOfMultiple(haystack, processor)
+haystack.indexOfSlice(needle) // fast (Knuth-Morris-Pratt, Scala standard library)
+
+val matcher = Pattern.compile(needle).matcher(haystack)
+matcher.find()
+matcher.start()
