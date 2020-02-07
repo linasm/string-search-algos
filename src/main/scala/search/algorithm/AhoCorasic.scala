@@ -20,7 +20,11 @@ object AhoCorasic extends MultiSearchAlgorithm {
 
     override def process(value: Byte): Boolean = {
       currentPosition = jumpTable(currentPosition * AlphabetSize + toUnsignedInt(value))
-      matchFor(currentPosition) == -1
+      if (currentPosition >= 0) true
+      else {
+        currentPosition = -currentPosition
+        false
+      }
     }
 
     override def needleLength: Int = {
@@ -46,8 +50,16 @@ object AhoCorasic extends MultiSearchAlgorithm {
   @varargs
   override def apply(needles: Array[Byte]*): Context = {
 
+    require(needles.forall(_.nonEmpty), "Cannot search for an empty needle.")
+
     val (jumpTable, matchFor) = buildJumpTable(needles)
     linkSuffixes(jumpTable, matchFor)
+
+    for (i <- jumpTable.indices) {
+      if (matchFor(jumpTable(i)) >= 0) {
+        jumpTable(i) = -jumpTable(i)
+      }
+    }
 
     new Context(jumpTable, matchFor, needles.toArray.map(_.length))
   }

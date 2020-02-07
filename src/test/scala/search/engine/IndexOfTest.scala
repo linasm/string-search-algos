@@ -2,9 +2,11 @@ package search.engine
 
 import java.util
 
+import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Prop.{forAll, propBoolean}
 import org.scalacheck.{Gen, Properties, Test}
 import search.algorithm.{AhoCorasic, KnuthMorrisPratt, SearchAlgorithm, ShiftingBitMask}
+
 
 abstract class IndexOfTest(algorithm: SearchAlgorithm)
   extends Properties(s"indexOf(${algorithm.getClass.getSimpleName})") {
@@ -13,8 +15,9 @@ abstract class IndexOfTest(algorithm: SearchAlgorithm)
       p.withMinSuccessfulTests(10000)
   }
 
-  property("find existing needle in a haystack") = forAll { haystack: Array[Byte] =>
+  property("find existing needle in a haystack") = forAll(Gen.nonEmptyListOf(arbitrary[Byte])) { haystackList =>
 
+    val haystack = haystackList.toArray
     val maxIndex = math.max(0, haystack.length - 1)
 
     forAll(
@@ -35,7 +38,10 @@ abstract class IndexOfTest(algorithm: SearchAlgorithm)
     }
   }
 
-  property("report a missing needle in a haystack") = forAll { (haystack: Array[Byte], needle: Array[Byte]) =>
+  property("report a missing needle in a haystack") = forAll { (haystackList: List[Byte], needleList: List[Byte]) =>
+
+    val haystack = haystackList.toArray
+    val needle = needleList.toArray
 
     (needle.length <= 64 && haystack.indexOfSlice(needle) == -1) ==> {
 
