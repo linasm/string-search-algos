@@ -6,17 +6,21 @@ import search.engine.{MultiSearchContext, MultiSearchProcessor}
 
 import scala.annotation.varargs
 import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 
 
 object AhoCorasic extends MultiSearchAlgorithm {
 
-  final class Processor(trieRoot: TrieNode, needleLengths: Array[Int]) extends MultiSearchProcessor {
+  final class Processor(
+      private[this] val jumpTable: Array[Int],
+      private[this] val matchFor: Array[Int],
+      private[this] val needleLengths: Array[Int]) extends MultiSearchProcessor {
 
-    private[this] var currentNode = trieRoot
+    private[this] var currentPosition = 0
 
     override def process(value: Byte): Boolean = {
-      currentNode = currentNode.children(toUnsignedInt(value))
-      currentNode.matchFor == -1
+      currentPosition = jumpTable(currentPosition * AlphabetSize + toUnsignedInt(value))
+      matchFor(currentPosition) == -1
     }
 
     override def needleLength: Int = {
@@ -24,69 +28,84 @@ object AhoCorasic extends MultiSearchAlgorithm {
       if (foundNeedleId >= 0) needleLengths(foundNeedleId) else 0
     }
 
-    override def getFoundNeedleId: Int = currentNode.matchFor
+    override def getFoundNeedleId: Int = matchFor(currentPosition)
 
   }
 
-  final class Context(trieRoot: TrieNode, needleLengths: Array[Int]) extends MultiSearchContext {
+  final class Context(
+      jumpTable: Array[Int],
+      matchFor: Array[Int],
+      needleLengths: Array[Int]) extends MultiSearchContext {
 
-      override def newProcessor: Processor = new Processor(trieRoot, needleLengths)
+      override def newProcessor: Processor = new Processor(jumpTable, matchFor, needleLengths)
 
   }
 
   private val AlphabetSize = 256
 
-  private class TrieNode {
-    val children: Array[TrieNode] = Array.ofDim(AlphabetSize)
-    var matchFor: Int = -1
-    def hasChildFor(ch: Int): Boolean = children(ch) != null
-  }
-
   @varargs
   override def apply(needles: Array[Byte]*): Context = {
 
-    val trieRoot = buildTrie(needles)
-    linkSuffixes(trieRoot)
+    val (jumpTable, matchFor) = buildJumpTable(needles)
+    linkSuffixes(jumpTable, matchFor)
 
-    new Context(trieRoot, needles.toArray.map(_.length))
+    new Context(jumpTable, matchFor, needles.toArray.map(_.length))
   }
 
   override def apply(needle: Array[Byte]): Context = apply(Seq(needle): _*)
 
-  private def buildTrie(needles: Seq[Array[Byte]]): TrieNode = {
+  private def buildJumpTable(needles: Seq[Array[Byte]]): (Array[Int], Array[Int]) = {
 
-    val trieRoot = new TrieNode
+    val emptyJumpTableSegment = Array.fill(AlphabetSize)(-1)
+    val jumpTableBuilder = ArrayBuffer(emptyJumpTableSegment: _*)
+    val matchForBuilder = ArrayBuffer(-1)
 
     for (stringId <- needles.indices) {
+
       val str = needles(stringId)
-      var currentNode = trieRoot
-      for (ch0 <- str) {
-        val ch = toUnsignedInt(ch0)
-        if (!currentNode.hasChildFor(ch)) {
-          currentNode.children(ch) = new TrieNode
+      var currentPosition = 0
+
+      for (signedByte <- str) {
+
+        val next = currentPosition * AlphabetSize + toUnsignedInt(signedByte)
+
+        if (jumpTableBuilder(next) == -1) {
+          jumpTableBuilder(next) = matchForBuilder.size
+          jumpTableBuilder ++= emptyJumpTableSegment
+          matchForBuilder += -1
         }
-        currentNode = currentNode.children(ch)
+
+        currentPosition = jumpTableBuilder(next)
       }
-      currentNode.matchFor = stringId
+
+      matchForBuilder(currentPosition) = stringId
     }
-    trieRoot
+
+    (jumpTableBuilder.toArray, matchForBuilder.toArray)
   }
 
-  private def linkSuffixes(trieRoot: TrieNode): Unit = {
+  private def linkSuffixes(jumpTable: Array[Int], matchFor: Array[Int]): Unit = {
 
-    val queue = mutable.Queue(trieRoot)
-    val suffixLinks = mutable.AnyRefMap.empty[TrieNode, TrieNode]
+    val queue = mutable.Queue(0)
+    val suffixLinks = Array.fill(matchFor.length)(-1)
 
     while (queue.nonEmpty) {
+
       val v = queue.dequeue()
-      val u = suffixLinks.getOrElse(v, v)
-      if (v.matchFor == -1) v.matchFor = u.matchFor
+      val u = if (suffixLinks(v) == -1) v else suffixLinks(v)
+
+      if (matchFor(v) == -1) matchFor(v) = matchFor(u)
+
       for (ch <- 0 until AlphabetSize) {
-        if (v.hasChildFor(ch)) {
-          suffixLinks(v.children(ch)) = if (suffixLinks.contains(v) && u.hasChildFor(ch)) u.children(ch) else trieRoot
-          queue += v.children(ch)
+
+        val vIndex = v * AlphabetSize + ch
+        val uIndex = u * AlphabetSize + ch
+
+        if (jumpTable(vIndex) != -1) {
+          suffixLinks(jumpTable(vIndex)) = if (suffixLinks(v) != -1 && jumpTable(uIndex) != -1) jumpTable(uIndex) else 0
+          queue += jumpTable(vIndex)
         } else {
-          v.children(ch) = if (u.hasChildFor(ch)) u.children(ch) else trieRoot
+          jumpTable(vIndex) = if (jumpTable(uIndex) != -1) jumpTable(uIndex) else 0
         }
       }
     }
