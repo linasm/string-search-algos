@@ -11,7 +11,7 @@ abstract class IndexOfMultipleTest(algorithm: MultiSearchAlgorithm) extends AnyW
 
   s"indexOfMultiple(${algorithm.getClass.getSimpleName})" should {
 
-    "find singe needle repeatedly" in {
+    "find single needle repeatedly" in {
 
       val haystack = "aabbaabbaa".getBytes
 
