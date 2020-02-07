@@ -19,7 +19,7 @@ object AhoCorasic extends MultiSearchAlgorithm {
     private[this] var currentPosition = 0
 
     override def process(value: Byte): Boolean = {
-      currentPosition = jumpTable(currentPosition * AlphabetSize + toUnsignedInt(value))
+      currentPosition = jumpTable(currentPosition + toUnsignedInt(value))
       if (currentPosition >= 0) true
       else {
         currentPosition = -currentPosition
@@ -32,7 +32,7 @@ object AhoCorasic extends MultiSearchAlgorithm {
       if (foundNeedleId >= 0) needleLengths(foundNeedleId) else 0
     }
 
-    override def getFoundNeedleId: Int = matchFor(currentPosition)
+    override def getFoundNeedleId: Int = matchFor(currentPosition >>> BitsPerSymbol)
 
   }
 
@@ -45,7 +45,8 @@ object AhoCorasic extends MultiSearchAlgorithm {
 
   }
 
-  private val AlphabetSize = 256
+  private final val BitsPerSymbol = 8
+  private final val AlphabetSize = 1 << BitsPerSymbol
 
   @varargs
   override def apply(needles: Array[Byte]*): Context = {
@@ -56,7 +57,7 @@ object AhoCorasic extends MultiSearchAlgorithm {
     linkSuffixes(jumpTable, matchFor)
 
     for (i <- jumpTable.indices) {
-      if (matchFor(jumpTable(i)) >= 0) {
+      if (matchFor(jumpTable(i) >>> BitsPerSymbol) >= 0) {
         jumpTable(i) = -jumpTable(i)
       }
     }
@@ -79,10 +80,10 @@ object AhoCorasic extends MultiSearchAlgorithm {
 
       for (signedByte <- str) {
 
-        val next = currentPosition * AlphabetSize + toUnsignedInt(signedByte)
+        val next = currentPosition + toUnsignedInt(signedByte)
 
         if (jumpTableBuilder(next) == -1) {
-          jumpTableBuilder(next) = matchForBuilder.size
+          jumpTableBuilder(next) = matchForBuilder.size << BitsPerSymbol
           jumpTableBuilder ++= emptyJumpTableSegment
           matchForBuilder += -1
         }
@@ -90,7 +91,7 @@ object AhoCorasic extends MultiSearchAlgorithm {
         currentPosition = jumpTableBuilder(next)
       }
 
-      matchForBuilder(currentPosition) = stringId
+      matchForBuilder(currentPosition >>> BitsPerSymbol) = stringId
     }
 
     (jumpTableBuilder.toArray, matchForBuilder.toArray)
@@ -104,17 +105,17 @@ object AhoCorasic extends MultiSearchAlgorithm {
     while (queue.nonEmpty) {
 
       val v = queue.dequeue()
-      val u = if (suffixLinks(v) == -1) v else suffixLinks(v)
+      val u = if (v == 0) 0 else suffixLinks(v >>> BitsPerSymbol)
 
-      if (matchFor(v) == -1) matchFor(v) = matchFor(u)
+      if (matchFor(v >>> BitsPerSymbol) == -1) matchFor(v >>> BitsPerSymbol) = matchFor(u >>> BitsPerSymbol)
 
       for (ch <- 0 until AlphabetSize) {
 
-        val vIndex = v * AlphabetSize + ch
-        val uIndex = u * AlphabetSize + ch
+        val vIndex = v + ch
+        val uIndex = u + ch
 
         if (jumpTable(vIndex) != -1) {
-          suffixLinks(jumpTable(vIndex)) = if (suffixLinks(v) != -1 && jumpTable(uIndex) != -1) jumpTable(uIndex) else 0
+          suffixLinks(jumpTable(vIndex) >>> BitsPerSymbol) = if (v > 0 && jumpTable(uIndex) != -1) jumpTable(uIndex) else 0
           queue += jumpTable(vIndex)
         } else {
           jumpTable(vIndex) = if (jumpTable(uIndex) != -1) jumpTable(uIndex) else 0
