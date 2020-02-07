@@ -19,7 +19,7 @@ object AhoCorasic extends MultiSearchAlgorithm {
     private[this] var currentPosition = 0
 
     override def process(value: Byte): Boolean = {
-      currentPosition = jumpTable(currentPosition + toUnsignedInt(value))
+      currentPosition = jumpTable(currentPosition | toUnsignedInt(value))
       if (currentPosition >= 0) true
       else {
         currentPosition = -currentPosition
@@ -111,8 +111,8 @@ object AhoCorasic extends MultiSearchAlgorithm {
 
       for (ch <- 0 until AlphabetSize) {
 
-        val vIndex = v + ch
-        val uIndex = u + ch
+        val vIndex = v | ch
+        val uIndex = u | ch
 
         if (jumpTable(vIndex) != -1) {
           suffixLinks(jumpTable(vIndex) >>> BitsPerSymbol) = if (v > 0 && jumpTable(uIndex) != -1) jumpTable(uIndex) else 0
