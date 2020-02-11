@@ -27,6 +27,10 @@ object AhoCorasic extends MultiSearchAlgorithm {
       }
     }
 
+    override def reset(): Unit = {
+      currentPosition = 0
+    }
+
     override def needleLength: Int = {
       val foundNeedleId = getFoundNeedleId
       if (foundNeedleId >= 0) needleLengths(foundNeedleId) else 0

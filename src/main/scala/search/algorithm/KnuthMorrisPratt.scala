@@ -10,23 +10,27 @@ object KnuthMorrisPratt extends SearchAlgorithm {
       jumpTable: Array[Int])
     extends SearchProcessor {
 
-    private[this] var j = 0
+    private[this] var currentPosition = 0
 
     override val needleLength: Int = needle.length
 
     override def process(value: Byte): Boolean = {
 
-      while (j > 0 && needle(j) != value) {
-        j = jumpTable(j)
+      while (currentPosition > 0 && needle(currentPosition) != value) {
+        currentPosition = jumpTable(currentPosition)
       }
-      if (needle(j) == value) {
-        j += 1
+      if (needle(currentPosition) == value) {
+        currentPosition += 1
       }
 
-      if (j == needleLength) {
-        j = jumpTable(j)
+      if (currentPosition == needleLength) {
+        currentPosition = jumpTable(currentPosition)
         false
       } else true
+    }
+
+    override def reset(): Unit = {
+      currentPosition = 0
     }
 
   }
