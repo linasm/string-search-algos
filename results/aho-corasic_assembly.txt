@@ -1,0 +1,412 @@
+============================= C2-compiled nmethod ==============================
+----------------------------------- Assembly -----------------------------------
+Compiled method (c2)     904  771       4       benchmark.SearchBenchmark::ahoCorasic (26 bytes)
+ total in heap  [0x00000001166c0310,0x00000001166c0d88] = 2680
+ relocation     [0x00000001166c0470,0x00000001166c0490] = 32
+ main code      [0x00000001166c04a0,0x00000001166c0760] = 704
+ stub code      [0x00000001166c0760,0x00000001166c0778] = 24
+ oops           [0x00000001166c0778,0x00000001166c0790] = 24
+ metadata       [0x00000001166c0790,0x00000001166c07f8] = 104
+ scopes data    [0x00000001166c07f8,0x00000001166c09e0] = 488
+ scopes pcs     [0x00000001166c09e0,0x00000001166c0d60] = 896
+ dependencies   [0x00000001166c0d60,0x00000001166c0d68] = 8
+ nul chk table  [0x00000001166c0d68,0x00000001166c0d88] = 32
+--------------------------------------------------------------------------------
+[Constant Pool (empty)]
+--------------------------------------------------------------------------------
+[Entry Point]
+  # {method} {0x0000000128d44b68} 'ahoCorasic' '()I' in 'benchmark/SearchBenchmark'
+  #           [sp+0x40]  (sp of caller)
+  0x00000001166c04a0:   mov    0x8(%rsi),%r10d
+  0x00000001166c04a4:   shl    $0x3,%r10
+  0x00000001166c04a8:   movabs $0x800000000,%r12
+  0x00000001166c04b2:   add    %r12,%r10
+  0x00000001166c04b5:   xor    %r12,%r12
+  0x00000001166c04b8:   cmp    %r10,%rax
+  0x00000001166c04bb:   jne    0x000000010ec00d00           ;   {runtime_call ic_miss_stub}
+  0x00000001166c04c1:   data16 xchg %ax,%ax
+  0x00000001166c04c4:   nopl   0x0(%rax,%rax,1)
+  0x00000001166c04cc:   data16 data16 xchg %ax,%ax
+[Verified Entry Point]
+  0x00000001166c04d0:   mov    %eax,-0x14000(%rsp)
+  0x00000001166c04d7:   push   %rbp
+  0x00000001166c04d8:   sub    $0x30,%rsp                   ;*synchronization entry
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@-1 (line 60)
+  0x00000001166c04dc:   mov    0x28(%rsi),%r8d              ;*getfield ahoCorasicContext {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::ahoCorasicContext@1 (line 33)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@8 (line 60)
+  0x00000001166c04e0:   mov    0x8(%r12,%r8,8),%r11d        ; implicit exception: dispatches to 0x00000001166c072f
+  0x00000001166c04e5:   mov    0x1c(%rsi),%edi              ;*getfield haystackBytes {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::haystackBytes@1 (line 31)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@4 (line 60)
+  0x00000001166c04e8:   cmp    $0x180def,%r11d              ;   {metadata('search/algorithm/AhoCorasic$Context')}
+  0x00000001166c04ef:   jne    0x00000001166c070e           ;*invokeinterface newProcessor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@11 (line 60)
+  0x00000001166c04f5:   mov    0xc(%r12,%rdi,8),%eax        ; implicit exception: dispatches to 0x00000001166c073e
+                                                            ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@19 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c04fa:   test   %eax,%eax
+  0x00000001166c04fc:   jbe    0x00000001166c067f           ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@20 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c0502:   lea    (%r12,%r8,8),%r10            ;*invokeinterface newProcessor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@11 (line 60)
+  0x00000001166c0506:   mov    0xc(%r10),%ebx               ;*getfield jumpTable {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Context::newProcessor@5 (line 48)
+                                                            ; - search.algorithm.AhoCorasic$Context::newProcessor@1 (line 43)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@11 (line 60)
+  0x00000001166c050a:   mov    0x14(%r10),%edx              ;*getfield needleLengths {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Context::newProcessor@13 (line 48)
+                                                            ; - search.algorithm.AhoCorasic$Context::newProcessor@1 (line 43)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@11 (line 60)
+  0x00000001166c050e:   mov    0x10(%r10),%r10d             ;*getfield matchFor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Context::newProcessor@9 (line 48)
+                                                            ; - search.algorithm.AhoCorasic$Context::newProcessor@1 (line 43)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@11 (line 60)
+  0x00000001166c0512:   vmovd  %r10d,%xmm1
+  0x00000001166c0517:   mov    %eax,%r10d
+  0x00000001166c051a:   dec    %r10d
+  0x00000001166c051d:   cmp    %eax,%r10d
+  0x00000001166c0520:   jae    0x00000001166c06ea
+  0x00000001166c0526:   mov    0xc(%r12,%rbx,8),%esi        ; implicit exception: dispatches to 0x00000001166c06ea
+                                                            ;*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@14 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c052b:   movzbl 0x10(%r12,%rdi,8),%r9d       ;*iand {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - java.lang.Byte::toUnsignedInt@4 (line 523)
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@10 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c0531:   xor    %ecx,%ecx
+  0x00000001166c0533:   cmp    %esi,%r9d
+  0x00000001166c0536:   jae    0x00000001166c070a
+  0x00000001166c053c:   lea    (%r12,%rbx,8),%r8
+  0x00000001166c0540:   mov    0x10(%r8,%r9,4),%ebp         ;*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@14 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c0545:   test   %ebp,%ebp
+  0x00000001166c0547:   jl     0x00000001166c06c9           ;*if_icmplt {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@23 (line 23)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c054d:   mov    %eax,%r14d
+  0x00000001166c0550:   add    $0xfffffffd,%r14d
+  0x00000001166c0554:   lea    (%r12,%rdi,8),%r13           ;*getfield haystackBytes {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::haystackBytes@1 (line 31)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@4 (line 60)
+  0x00000001166c0558:   mov    $0x80000000,%r9d
+  0x00000001166c055e:   cmp    %r14d,%r10d
+  0x00000001166c0561:   cmovl  %r9d,%r14d
+  0x00000001166c0565:   mov    $0x1,%r10d
+  0x00000001166c056b:   cmp    $0x1,%r14d
+  0x00000001166c056f:   jle    0x00000001166c0650           ;*goto {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@45 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c0575:   jmp    0x00000001166c057b
+  0x00000001166c0577:   vmovd  %xmm0,%edx
+  0x00000001166c057b:   mov    %r14d,%r11d
+  0x00000001166c057e:   sub    %r10d,%r11d
+  0x00000001166c0581:   mov    $0xfa0,%r9d
+  0x00000001166c0587:   cmp    %r9d,%r11d
+  0x00000001166c058a:   cmovg  %r9d,%r11d
+  0x00000001166c058e:   add    %r10d,%r11d
+  0x00000001166c0591:   vmovd  %edx,%xmm0
+  0x00000001166c0595:   data16 data16 nopw 0x0(%rax,%rax,1) ;*getfield currentPosition {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@6 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c05a0:   movslq %r10d,%rdx                   ;*baload {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@27 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c05a3:   movzbl 0x10(%r13,%rdx,1),%r9d
+  0x00000001166c05a9:   or     %ebp,%r9d                    ;*ior {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@13 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c05ac:   cmp    %esi,%r9d
+  0x00000001166c05af:   jae    0x00000001166c0694
+  0x00000001166c05b5:   mov    0x10(%r8,%r9,4),%ebp         ;*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@14 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c05ba:   test   %ebp,%ebp
+  0x00000001166c05bc:   jl     0x00000001166c06c2           ;*if_icmplt {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@23 (line 23)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c05c2:   movzbl 0x11(%r13,%rdx,1),%r9d
+  0x00000001166c05c8:   or     %ebp,%r9d                    ;*ior {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@13 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c05cb:   mov    %r10d,%ecx
+  0x00000001166c05ce:   inc    %ecx                         ;*iadd {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@42 (line 33)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c05d0:   cmp    %esi,%r9d
+  0x00000001166c05d3:   jae    0x00000001166c0697
+  0x00000001166c05d9:   mov    0x10(%r8,%r9,4),%ebp         ;*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@14 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c05de:   test   %ebp,%ebp
+  0x00000001166c05e0:   jl     0x00000001166c06c5           ;*if_icmplt {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@23 (line 23)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c05e6:   movzbl 0x12(%r13,%rdx,1),%r9d
+  0x00000001166c05ec:   or     %ebp,%r9d                    ;*ior {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@13 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c05ef:   mov    %r10d,%ecx
+  0x00000001166c05f2:   add    $0x2,%ecx                    ;*iadd {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@42 (line 33)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c05f5:   cmp    %esi,%r9d
+  0x00000001166c05f8:   jae    0x00000001166c0697
+  0x00000001166c05fe:   mov    0x10(%r8,%r9,4),%ebp         ;*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@14 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c0603:   test   %ebp,%ebp
+  0x00000001166c0605:   jl     0x00000001166c06c5           ;*if_icmplt {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@23 (line 23)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c060b:   movzbl 0x13(%r13,%rdx,1),%r9d
+  0x00000001166c0611:   or     %ebp,%r9d                    ;*ior {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@13 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c0614:   mov    %r10d,%ecx
+  0x00000001166c0617:   add    $0x3,%ecx                    ;*iadd {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@42 (line 33)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c061a:   cmp    %esi,%r9d
+  0x00000001166c061d:   jae    0x00000001166c0697
+  0x00000001166c061f:   mov    0x10(%r8,%r9,4),%ebp         ;*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@14 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c0624:   test   %ebp,%ebp
+  0x00000001166c0626:   jl     0x00000001166c06c5           ;*if_icmplt {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@23 (line 23)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c062c:   add    $0x4,%r10d                   ;*iadd {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@42 (line 33)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c0630:   cmp    %r11d,%r10d
+  0x00000001166c0633:   jl     0x00000001166c05a0           ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@20 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c0639:   mov    0x108(%r15),%r11             ; ImmutableOopMap {r8=Oop rbx=NarrowOop rdi=NarrowOop r13=Oop xmm0=NarrowOop xmm1=NarrowOop }
+                                                            ;*goto {reexecute=1 rethrow=0 return_oop=0}
+                                                            ; - (reexecute) search.engine.SearchEngine$::indexOfImpl@45 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c0640:   test   %eax,(%r11)                  ;*goto {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@45 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+                                                            ;   {poll}
+  0x00000001166c0643:   cmp    %r14d,%r10d
+  0x00000001166c0646:   jl     0x00000001166c0577
+  0x00000001166c064c:   vmovd  %xmm0,%edx
+  0x00000001166c0650:   cmp    %eax,%r10d
+  0x00000001166c0653:   jge    0x00000001166c067f
+  0x00000001166c0655:   data16 xchg %ax,%ax                 ;*getfield currentPosition {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@6 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c0658:   movzbl 0x10(%r13,%r10,1),%r9d
+  0x00000001166c065e:   or     %ebp,%r9d                    ;*ior {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@13 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c0661:   cmp    %esi,%r9d
+  0x00000001166c0664:   jae    0x00000001166c0722
+  0x00000001166c066a:   mov    0x10(%r8,%r9,4),%ebp         ;*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@14 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c066f:   test   %ebp,%ebp
+  0x00000001166c0671:   jl     0x00000001166c072a           ;*if_icmplt {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@23 (line 23)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c0677:   inc    %r10d                        ;*iadd {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@42 (line 33)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c067a:   cmp    %eax,%r10d
+  0x00000001166c067d:   jl     0x00000001166c0658           ;*iconst_m1 {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@48 (line 36)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c067f:   mov    $0xffffffff,%eax
+  0x00000001166c0684:   add    $0x30,%rsp
+  0x00000001166c0688:   pop    %rbp
+  0x00000001166c0689:   mov    0x108(%r15),%r10
+  0x00000001166c0690:   test   %eax,(%r10)                  ;   {poll_return}
+  0x00000001166c0693:   retq
+  0x00000001166c0694:   mov    %r10d,%ecx
+  0x00000001166c0697:   vmovd  %xmm0,%edx
+  0x00000001166c069b:   mov    $0xffffffe4,%esi
+  0x00000001166c06a0:   mov    %ecx,(%rsp)
+  0x00000001166c06a3:   mov    %r9d,0x4(%rsp)
+  0x00000001166c06a8:   mov    %edi,0x8(%rsp)
+  0x00000001166c06ac:   mov    %ebx,0x10(%rsp)
+  0x00000001166c06b0:   mov    %edx,0x14(%rsp)
+  0x00000001166c06b4:   vmovss %xmm1,0x18(%rsp)
+  0x00000001166c06ba:   nop
+  0x00000001166c06bb:   callq  0x000000010ebfed80           ; ImmutableOopMap {[8]=NarrowOop [16]=NarrowOop [20]=NarrowOop [24]=NarrowOop }
+                                                            ;*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@14 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+                                                            ;   {runtime_call UncommonTrapBlob}
+  0x00000001166c06c0:   ud2                                 ;*iaload {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@14 (line 22)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c06c2:   mov    %r10d,%ecx
+  0x00000001166c06c5:   vmovd  %xmm0,%edx
+  0x00000001166c06c9:   mov    $0xffffff45,%esi
+  0x00000001166c06ce:   mov    %ecx,(%rsp)
+  0x00000001166c06d1:   mov    %edi,0x8(%rsp)
+  0x00000001166c06d5:   mov    %ebx,0xc(%rsp)
+  0x00000001166c06d9:   mov    %edx,0x10(%rsp)
+  0x00000001166c06dd:   vmovss %xmm1,0x14(%rsp)
+  0x00000001166c06e3:   callq  0x000000010ebfed80           ; ImmutableOopMap {[8]=NarrowOop [12]=NarrowOop [16]=NarrowOop [20]=NarrowOop }
+                                                            ;*if_icmplt {reexecute=1 rethrow=0 return_oop=0}
+                                                            ; - (reexecute) search.algorithm.AhoCorasic$Processor::process@23 (line 23)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+                                                            ;   {runtime_call UncommonTrapBlob}
+  0x00000001166c06e8:   ud2                                 ;*if_icmplt {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.AhoCorasic$Processor::process@23 (line 23)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c06ea:   mov    $0xffffff76,%esi
+  0x00000001166c06ef:   mov    %edi,%ebp
+  0x00000001166c06f1:   mov    %eax,(%rsp)
+  0x00000001166c06f4:   mov    %ebx,0x4(%rsp)
+  0x00000001166c06f8:   mov    %edx,0x8(%rsp)
+  0x00000001166c06fc:   vmovss %xmm1,0xc(%rsp)
+  0x00000001166c0702:   nop
+  0x00000001166c0703:   callq  0x000000010ebfed80           ; ImmutableOopMap {rbp=NarrowOop [4]=NarrowOop [8]=NarrowOop [12]=NarrowOop }
+                                                            ;*if_icmpge {reexecute=1 rethrow=0 return_oop=0}
+                                                            ; - (reexecute) search.engine.SearchEngine$::indexOfImpl@20 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+                                                            ;   {runtime_call UncommonTrapBlob}
+  0x00000001166c0708:   ud2                                 ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@20 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c070a:   xor    %ebp,%ebp
+  0x00000001166c070c:   jmp    0x00000001166c069b
+  0x00000001166c070e:   mov    $0xffffffde,%esi
+  0x00000001166c0713:   mov    %edi,%ebp
+  0x00000001166c0715:   mov    %r8d,(%rsp)
+  0x00000001166c0719:   xchg   %ax,%ax
+  0x00000001166c071b:   callq  0x000000010ebfed80           ; ImmutableOopMap {rbp=NarrowOop [0]=NarrowOop }
+                                                            ;*invokeinterface newProcessor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@11 (line 60)
+                                                            ;   {runtime_call UncommonTrapBlob}
+  0x00000001166c0720:   ud2
+  0x00000001166c0722:   mov    %r10d,%ecx
+  0x00000001166c0725:   jmpq   0x00000001166c069b
+  0x00000001166c072a:   mov    %r10d,%ecx
+  0x00000001166c072d:   jmp    0x00000001166c06c9
+  0x00000001166c072f:   mov    $0xfffffff6,%esi
+  0x00000001166c0734:   data16 xchg %ax,%ax
+  0x00000001166c0737:   callq  0x000000010ebfed80           ; ImmutableOopMap {}
+                                                            ;*invokeinterface newProcessor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@11 (line 60)
+                                                            ;   {runtime_call UncommonTrapBlob}
+  0x00000001166c073c:   ud2                                 ;*invokeinterface newProcessor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@11 (line 60)
+  0x00000001166c073e:   mov    $0xfffffff6,%esi
+  0x00000001166c0743:   callq  0x000000010ebfed80           ; ImmutableOopMap {}
+                                                            ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@19 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+                                                            ;   {runtime_call UncommonTrapBlob}
+  0x00000001166c0748:   ud2                                 ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@19 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::ahoCorasic@22 (line 60)
+  0x00000001166c074a:   hlt
+  0x00000001166c074b:   hlt
+  0x00000001166c074c:   hlt
+  0x00000001166c074d:   hlt
+  0x00000001166c074e:   hlt
+  0x00000001166c074f:   hlt
+  0x00000001166c0750:   hlt
+  0x00000001166c0751:   hlt
+  0x00000001166c0752:   hlt
+  0x00000001166c0753:   hlt
+  0x00000001166c0754:   hlt
+  0x00000001166c0755:   hlt
+  0x00000001166c0756:   hlt
+  0x00000001166c0757:   hlt
+  0x00000001166c0758:   hlt
+  0x00000001166c0759:   hlt
+  0x00000001166c075a:   hlt
+  0x00000001166c075b:   hlt
+  0x00000001166c075c:   hlt
+  0x00000001166c075d:   hlt
+  0x00000001166c075e:   hlt
+  0x00000001166c075f:   hlt
+[Exception Handler]
+  0x00000001166c0760:   jmpq   0x000000010ecac280           ;   {no_reloc}
+[Deopt Handler Code]
+  0x00000001166c0765:   callq  0x00000001166c076a
+  0x00000001166c076a:   subq   $0x5,(%rsp)
+  0x00000001166c076f:   jmpq   0x000000010ebff0a0           ;   {runtime_call DeoptimizationBlob}
+  0x00000001166c0774:   hlt
+  0x00000001166c0775:   hlt
+  0x00000001166c0776:   hlt
+  0x00000001166c0777:   hlt
+--------------------------------------------------------------------------------

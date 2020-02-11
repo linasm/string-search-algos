@@ -14,7 +14,11 @@ import search.engine._
 @Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
 @Warmup(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
 @State(Scope.Benchmark)
-@Fork(1)
+@Fork(
+  value = 1,
+  // Requires hsdis-amd64.dylib in jdk/Contents/Home/bin:
+  // jvmArgs = Array("-XX:+UnlockDiagnosticVMOptions", "-XX:CompileCommand=print,*.ahoCorasic", "-XX:PrintAssemblyOptions=intel")
+)
 class SearchBenchmark {
 
   import SearchBenchmark._

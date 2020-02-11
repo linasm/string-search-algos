@@ -1,0 +1,523 @@
+============================= C2-compiled nmethod ==============================
+----------------------------------- Assembly -----------------------------------
+Compiled method (c2)     559  785       4       benchmark.SearchBenchmark::shiftingBitMask (26 bytes)
+ total in heap  [0x00000001191d7f10,0x00000001191d8b48] = 3128
+ relocation     [0x00000001191d8070,0x00000001191d8090] = 32
+ main code      [0x00000001191d80a0,0x00000001191d8420] = 896
+ stub code      [0x00000001191d8420,0x00000001191d8438] = 24
+ oops           [0x00000001191d8438,0x00000001191d8450] = 24
+ metadata       [0x00000001191d8450,0x00000001191d84b8] = 104
+ scopes data    [0x00000001191d84b8,0x00000001191d86d0] = 536
+ scopes pcs     [0x00000001191d86d0,0x00000001191d8b20] = 1104
+ dependencies   [0x00000001191d8b20,0x00000001191d8b28] = 8
+ nul chk table  [0x00000001191d8b28,0x00000001191d8b48] = 32
+--------------------------------------------------------------------------------
+[Constant Pool (empty)]
+--------------------------------------------------------------------------------
+[Entry Point]
+  # {method} {0x000000012c964b68} 'shiftingBitMask' '()I' in 'benchmark/SearchBenchmark'
+  #           [sp+0x50]  (sp of caller)
+  0x00000001191d80a0:   mov    0x8(%rsi),%r10d
+  0x00000001191d80a4:   shl    $0x3,%r10
+  0x00000001191d80a8:   movabs $0x800000000,%r12
+  0x00000001191d80b2:   add    %r12,%r10
+  0x00000001191d80b5:   xor    %r12,%r12
+  0x00000001191d80b8:   cmp    %r10,%rax
+  0x00000001191d80bb:   jne    0x0000000111716d00           ;   {runtime_call ic_miss_stub}
+  0x00000001191d80c1:   data16 xchg %ax,%ax
+  0x00000001191d80c4:   nopl   0x0(%rax,%rax,1)
+  0x00000001191d80cc:   data16 data16 xchg %ax,%ax
+[Verified Entry Point]
+  0x00000001191d80d0:   mov    %eax,-0x14000(%rsp)
+  0x00000001191d80d7:   push   %rbp
+  0x00000001191d80d8:   sub    $0x40,%rsp                   ;*synchronization entry
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@-1 (line 87)
+  0x00000001191d80dc:   mov    0x24(%rsi),%r11d             ;*getfield shiftingBitMaskContext {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMaskContext@1 (line 33)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@8 (line 87)
+  0x00000001191d80e0:   mov    0x8(%r12,%r11,8),%r10d       ; implicit exception: dispatches to 0x00000001191d83eb
+  0x00000001191d80e5:   mov    0x1c(%rsi),%edi              ;*getfield haystackBytes {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::haystackBytes@1 (line 31)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@4 (line 87)
+  0x00000001191d80e8:   cmp    $0x17d324,%r10d              ;   {metadata('search/algorithm/ShiftingBitMask$Context')}
+  0x00000001191d80ef:   jne    0x00000001191d83bd           ;*invokeinterface newProcessor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@11 (line 87)
+  0x00000001191d80f5:   mov    0xc(%r12,%rdi,8),%eax        ; implicit exception: dispatches to 0x00000001191d83fa
+                                                            ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@19 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d80fa:   test   %eax,%eax
+  0x00000001191d80fc:   jbe    0x00000001191d82e3           ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@20 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8102:   lea    (%r12,%r11,8),%r10           ;*invokeinterface newProcessor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@11 (line 87)
+  0x00000001191d8106:   mov    0x18(%r10),%r11d             ;*getfield bitMasks {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Context::newProcessor@5 (line 34)
+                                                            ; - search.algorithm.ShiftingBitMask$Context::newProcessor@1 (line 28)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@11 (line 87)
+  0x00000001191d810a:   mov    0x10(%r10),%r14              ;*getfield successBitMask {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Context::newProcessor@9 (line 34)
+                                                            ; - search.algorithm.ShiftingBitMask$Context::newProcessor@1 (line 28)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@11 (line 87)
+  0x00000001191d810e:   mov    0xc(%r10),%r8d               ;*getfield needleLength {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Context::newProcessor@13 (line 34)
+                                                            ; - search.algorithm.ShiftingBitMask$Context::newProcessor@1 (line 28)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@11 (line 87)
+  0x00000001191d8112:   mov    %eax,%ebx
+  0x00000001191d8114:   dec    %ebx
+  0x00000001191d8116:   cmp    %eax,%ebx
+  0x00000001191d8118:   jae    0x00000001191d8396
+  0x00000001191d811e:   mov    0xc(%r12,%r11,8),%ecx        ; implicit exception: dispatches to 0x00000001191d8396
+                                                            ;*laload {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@17 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8123:   movzbl 0x10(%r12,%rdi,8),%ebp       ;*iand {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - java.lang.Byte::toUnsignedInt@4 (line 523)
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@14 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8129:   xor    %r10d,%r10d
+  0x00000001191d812c:   mov    $0x1,%edx
+  0x00000001191d8131:   cmp    %ecx,%ebp
+  0x00000001191d8133:   jae    0x00000001191d83b6
+  0x00000001191d8139:   lea    (%r12,%r11,8),%r13
+  0x00000001191d813d:   and    0x10(%r13,%rbp,8),%rdx       ;*land {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@18 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8142:   mov    %rdx,%rbp
+  0x00000001191d8145:   and    %r14,%rbp                    ;*land {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@30 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8148:   test   %rbp,%rbp
+  0x00000001191d814b:   jne    0x00000001191d8356           ;*ifne {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@33 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8151:   mov    %eax,%esi
+  0x00000001191d8153:   add    $0xfffffffd,%esi
+  0x00000001191d8156:   lea    (%r12,%rdi,8),%r9            ;*getfield haystackBytes {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::haystackBytes@1 (line 31)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@4 (line 87)
+  0x00000001191d815a:   mov    $0x80000000,%r10d
+  0x00000001191d8160:   cmp    %esi,%ebx
+  0x00000001191d8162:   cmovl  %r10d,%esi
+  0x00000001191d8166:   mov    $0x1,%ebx
+  0x00000001191d816b:   cmp    $0x1,%esi
+  0x00000001191d816e:   jle    0x00000001191d82a7
+  0x00000001191d8174:   vmovd  %r8d,%xmm2
+  0x00000001191d8179:   vmovd  %r11d,%xmm3
+  0x00000001191d817e:   vmovd  %eax,%xmm0
+  0x00000001191d8182:   vmovd  %edi,%xmm1
+  0x00000001191d8186:   mov    %rdx,%rax
+  0x00000001191d8189:   shl    %rax
+  0x00000001191d818c:   or     $0x1,%rax                    ;*lor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@8 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8190:   mov    $0xfa0,%edi
+  0x00000001191d8195:   mov    %esi,%r8d
+  0x00000001191d8198:   sub    %ebx,%r8d
+  0x00000001191d819b:   cmp    %edi,%r8d
+  0x00000001191d819e:   cmovg  %edi,%r8d
+  0x00000001191d81a2:   add    %ebx,%r8d
+  0x00000001191d81a5:   data16 data16 nopw 0x0(%rax,%rax,1) ;*getfield currentMask {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@2 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d81b0:   movslq %ebx,%r11                    ;*baload {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@27 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d81b3:   movzbl 0x10(%r9,%r11,1),%ebp        ;*iand {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - java.lang.Byte::toUnsignedInt@4 (line 523)
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@14 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d81b9:   cmp    %ecx,%ebp
+  0x00000001191d81bb:   jae    0x00000001191d82f8
+  0x00000001191d81c1:   and    0x10(%r13,%rbp,8),%rax       ;*land {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@18 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d81c6:   mov    %rax,%rbp
+  0x00000001191d81c9:   and    %r14,%rbp                    ;*land {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@30 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d81cc:   test   %rbp,%rbp
+  0x00000001191d81cf:   jne    0x00000001191d8342           ;*ifne {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@33 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d81d5:   movzbl 0x11(%r9,%r11,1),%ebp        ;*iand {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - java.lang.Byte::toUnsignedInt@4 (line 523)
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@14 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d81db:   mov    %rax,%rdx
+  0x00000001191d81de:   shl    %rdx
+  0x00000001191d81e1:   or     $0x1,%rdx                    ;*lor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@8 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d81e5:   mov    %ebx,%r10d
+  0x00000001191d81e8:   inc    %r10d                        ;*iadd {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@42 (line 33)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d81eb:   cmp    %ecx,%ebp
+  0x00000001191d81ed:   jae    0x00000001191d8304
+  0x00000001191d81f3:   and    0x10(%r13,%rbp,8),%rdx       ;*land {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@18 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d81f8:   mov    %rdx,%rbp
+  0x00000001191d81fb:   and    %r14,%rbp                    ;*land {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@30 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d81fe:   test   %rbp,%rbp
+  0x00000001191d8201:   jne    0x00000001191d8348           ;*ifne {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@33 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8207:   mov    %rdx,%rax
+  0x00000001191d820a:   shl    %rax
+  0x00000001191d820d:   or     $0x1,%rax                    ;*lor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@8 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8211:   movzbl 0x12(%r9,%r11,1),%ebp        ;*iand {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - java.lang.Byte::toUnsignedInt@4 (line 523)
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@14 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8217:   mov    %ebx,%r10d
+  0x00000001191d821a:   add    $0x2,%r10d                   ;*iadd {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@42 (line 33)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d821e:   cmp    %ecx,%ebp
+  0x00000001191d8220:   jae    0x00000001191d82fb
+  0x00000001191d8226:   and    0x10(%r13,%rbp,8),%rax       ;*land {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@18 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d822b:   mov    %rax,%rbp
+  0x00000001191d822e:   and    %r14,%rbp                    ;*land {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@30 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8231:   test   %rbp,%rbp
+  0x00000001191d8234:   jne    0x00000001191d8345           ;*ifne {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@33 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d823a:   movzbl 0x13(%r9,%r11,1),%ebp        ;*iand {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - java.lang.Byte::toUnsignedInt@4 (line 523)
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@14 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8240:   mov    %rax,%rdx
+  0x00000001191d8243:   shl    %rdx
+  0x00000001191d8246:   or     $0x1,%rdx                    ;*lor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@8 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d824a:   mov    %ebx,%r10d
+  0x00000001191d824d:   add    $0x3,%r10d                   ;*iadd {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@42 (line 33)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8251:   cmp    %ecx,%ebp
+  0x00000001191d8253:   jae    0x00000001191d8304
+  0x00000001191d8259:   and    0x10(%r13,%rbp,8),%rdx       ;*land {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@18 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d825e:   mov    %rdx,%rbp
+  0x00000001191d8261:   and    %r14,%rbp                    ;*land {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@30 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8264:   test   %rbp,%rbp
+  0x00000001191d8267:   jne    0x00000001191d8348           ;*ifne {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@33 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d826d:   mov    %rdx,%rax
+  0x00000001191d8270:   shl    %rax
+  0x00000001191d8273:   or     $0x1,%rax                    ;*lor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@8 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8277:   add    $0x4,%ebx                    ;*iadd {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@42 (line 33)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d827a:   cmp    %r8d,%ebx
+  0x00000001191d827d:   jl     0x00000001191d81b0           ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@20 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8283:   mov    0x108(%r15),%r10             ; ImmutableOopMap {r9=Oop r13=Oop xmm1=NarrowOop xmm3=NarrowOop }
+                                                            ;*goto {reexecute=1 rethrow=0 return_oop=0}
+                                                            ; - (reexecute) search.engine.SearchEngine$::indexOfImpl@45 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d828a:   test   %eax,(%r10)                  ;*goto {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@45 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+                                                            ;   {poll}
+  0x00000001191d828d:   cmp    %esi,%ebx
+  0x00000001191d828f:   jl     0x00000001191d8195
+  0x00000001191d8295:   vmovd  %xmm1,%edi
+  0x00000001191d8299:   vmovd  %xmm0,%eax
+  0x00000001191d829d:   vmovd  %xmm3,%r11d
+  0x00000001191d82a2:   vmovd  %xmm2,%r8d
+  0x00000001191d82a7:   cmp    %eax,%ebx
+  0x00000001191d82a9:   jge    0x00000001191d82e3
+  0x00000001191d82ab:   nop                                 ;*getfield currentMask {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@2 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d82ac:   movzbl 0x10(%r9,%rbx,1),%ebp        ;*iand {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - java.lang.Byte::toUnsignedInt@4 (line 523)
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@14 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d82b2:   mov    %rdx,%r10
+  0x00000001191d82b5:   shl    %r10
+  0x00000001191d82b8:   or     $0x1,%r10                    ;*lor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@8 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d82bc:   cmp    %ecx,%ebp
+  0x00000001191d82be:   jae    0x00000001191d83d2
+  0x00000001191d82c4:   and    0x10(%r13,%rbp,8),%r10       ;*land {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@18 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d82c9:   mov    %r10,%rbp
+  0x00000001191d82cc:   and    %r14,%rbp                    ;*land {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@30 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d82cf:   test   %rbp,%rbp
+  0x00000001191d82d2:   jne    0x00000001191d83e0           ;*ifne {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@33 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d82d8:   inc    %ebx                         ;*iadd {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@42 (line 33)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d82da:   cmp    %eax,%ebx
+  0x00000001191d82dc:   jge    0x00000001191d82e3           ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@20 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d82de:   mov    %r10,%rdx
+  0x00000001191d82e1:   jmp    0x00000001191d82ac           ;*iconst_m1 {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@48 (line 36)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d82e3:   mov    $0xffffffff,%eax
+  0x00000001191d82e8:   add    $0x40,%rsp
+  0x00000001191d82ec:   pop    %rbp
+  0x00000001191d82ed:   mov    0x108(%r15),%r10
+  0x00000001191d82f4:   test   %eax,(%r10)                  ;   {poll_return}
+  0x00000001191d82f7:   retq
+  0x00000001191d82f8:   mov    %ebx,%r10d
+  0x00000001191d82fb:   mov    %rdx,%r11
+  0x00000001191d82fe:   mov    %rax,%rdx
+  0x00000001191d8301:   mov    %r11,%rax
+  0x00000001191d8304:   vmovd  %xmm1,%edi
+  0x00000001191d8308:   vmovd  %xmm3,%r11d
+  0x00000001191d830d:   vmovd  %xmm2,%r8d
+  0x00000001191d8312:   mov    $0xffffffe4,%esi
+  0x00000001191d8317:   mov    %r10d,(%rsp)
+  0x00000001191d831b:   mov    %rdx,0x8(%rsp)
+  0x00000001191d8320:   mov    %r14,0x10(%rsp)
+  0x00000001191d8325:   mov    %rax,0x18(%rsp)
+  0x00000001191d832a:   mov    %edi,0x4(%rsp)
+  0x00000001191d832e:   mov    %r8d,0x24(%rsp)
+  0x00000001191d8333:   mov    %r11d,0x28(%rsp)
+  0x00000001191d8338:   data16 xchg %ax,%ax
+  0x00000001191d833b:   callq  0x0000000111714d80           ; ImmutableOopMap {[4]=NarrowOop [40]=NarrowOop }
+                                                            ;*laload {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@17 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+                                                            ;   {runtime_call UncommonTrapBlob}
+  0x00000001191d8340:   ud2                                 ;*laload {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@17 (line 18)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8342:   mov    %ebx,%r10d
+  0x00000001191d8345:   mov    %rax,%rdx
+  0x00000001191d8348:   vmovd  %xmm1,%edi
+  0x00000001191d834c:   vmovd  %xmm3,%r11d
+  0x00000001191d8351:   vmovd  %xmm2,%r8d
+  0x00000001191d8356:   xor    %r9d,%r9d
+  0x00000001191d8359:   cmp    %r9,%rbp
+  0x00000001191d835c:   mov    $0xffffffff,%ebp
+  0x00000001191d8361:   jl     0x00000001191d836b
+  0x00000001191d8363:   setne  %bpl
+  0x00000001191d8367:   movzbl %bpl,%ebp                    ;*lcmp {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@32 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d836b:   mov    $0xffffff45,%esi
+  0x00000001191d8370:   mov    %r10d,(%rsp)
+  0x00000001191d8374:   mov    %r14,0x8(%rsp)
+  0x00000001191d8379:   mov    %rdx,0x10(%rsp)
+  0x00000001191d837e:   mov    %edi,0x4(%rsp)
+  0x00000001191d8382:   mov    %r8d,0x18(%rsp)
+  0x00000001191d8387:   mov    %r11d,0x1c(%rsp)
+  0x00000001191d838c:   data16 xchg %ax,%ax
+  0x00000001191d838f:   callq  0x0000000111714d80           ; ImmutableOopMap {[4]=NarrowOop [28]=NarrowOop }
+                                                            ;*ifne {reexecute=1 rethrow=0 return_oop=0}
+                                                            ; - (reexecute) search.algorithm.ShiftingBitMask$Processor::process@33 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+                                                            ;   {runtime_call UncommonTrapBlob}
+  0x00000001191d8394:   ud2                                 ;*ifne {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.algorithm.ShiftingBitMask$Processor::process@33 (line 19)
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@28 (line 32)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8396:   mov    $0xffffff76,%esi
+  0x00000001191d839b:   mov    %r14,%rbp
+  0x00000001191d839e:   mov    %edi,(%rsp)
+  0x00000001191d83a1:   mov    %eax,0x4(%rsp)
+  0x00000001191d83a5:   mov    %r8d,0x8(%rsp)
+  0x00000001191d83aa:   mov    %r11d,0xc(%rsp)
+  0x00000001191d83af:   callq  0x0000000111714d80           ; ImmutableOopMap {[0]=NarrowOop [12]=NarrowOop }
+                                                            ;*if_icmpge {reexecute=1 rethrow=0 return_oop=0}
+                                                            ; - (reexecute) search.engine.SearchEngine$::indexOfImpl@20 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+                                                            ;   {runtime_call UncommonTrapBlob}
+  0x00000001191d83b4:   ud2                                 ;*if_icmpge {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@20 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d83b6:   xor    %eax,%eax
+  0x00000001191d83b8:   jmpq   0x00000001191d8312
+  0x00000001191d83bd:   mov    $0xffffffde,%esi
+  0x00000001191d83c2:   mov    %edi,%ebp
+  0x00000001191d83c4:   mov    %r11d,(%rsp)
+  0x00000001191d83c8:   data16 xchg %ax,%ax
+  0x00000001191d83cb:   callq  0x0000000111714d80           ; ImmutableOopMap {rbp=NarrowOop [0]=NarrowOop }
+                                                            ;*invokeinterface newProcessor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@11 (line 87)
+                                                            ;   {runtime_call UncommonTrapBlob}
+  0x00000001191d83d0:   ud2
+  0x00000001191d83d2:   mov    %rdx,%rax
+  0x00000001191d83d5:   mov    %r10,%rdx
+  0x00000001191d83d8:   mov    %ebx,%r10d
+  0x00000001191d83db:   jmpq   0x00000001191d8312
+  0x00000001191d83e0:   mov    %r10,%rdx
+  0x00000001191d83e3:   mov    %ebx,%r10d
+  0x00000001191d83e6:   jmpq   0x00000001191d8356
+  0x00000001191d83eb:   mov    $0xfffffff6,%esi
+  0x00000001191d83f0:   data16 xchg %ax,%ax
+  0x00000001191d83f3:   callq  0x0000000111714d80           ; ImmutableOopMap {}
+                                                            ;*invokeinterface newProcessor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@11 (line 87)
+                                                            ;   {runtime_call UncommonTrapBlob}
+  0x00000001191d83f8:   ud2                                 ;*invokeinterface newProcessor {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@11 (line 87)
+  0x00000001191d83fa:   mov    $0xfffffff6,%esi
+  0x00000001191d83ff:   callq  0x0000000111714d80           ; ImmutableOopMap {}
+                                                            ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@19 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+                                                            ;   {runtime_call UncommonTrapBlob}
+  0x00000001191d8404:   ud2                                 ;*arraylength {reexecute=0 rethrow=0 return_oop=0}
+                                                            ; - search.engine.SearchEngine$::indexOfImpl@19 (line 31)
+                                                            ; - search.engine.SearchEngine$::indexOf@4 (line 11)
+                                                            ; - benchmark.SearchBenchmark::shiftingBitMask@22 (line 87)
+  0x00000001191d8406:   hlt
+  0x00000001191d8407:   hlt
+  0x00000001191d8408:   hlt
+  0x00000001191d8409:   hlt
+  0x00000001191d840a:   hlt
+  0x00000001191d840b:   hlt
+  0x00000001191d840c:   hlt
+  0x00000001191d840d:   hlt
+  0x00000001191d840e:   hlt
+  0x00000001191d840f:   hlt
+  0x00000001191d8410:   hlt
+  0x00000001191d8411:   hlt
+  0x00000001191d8412:   hlt
+  0x00000001191d8413:   hlt
+  0x00000001191d8414:   hlt
+  0x00000001191d8415:   hlt
+  0x00000001191d8416:   hlt
+  0x00000001191d8417:   hlt
+  0x00000001191d8418:   hlt
+  0x00000001191d8419:   hlt
+  0x00000001191d841a:   hlt
+  0x00000001191d841b:   hlt
+  0x00000001191d841c:   hlt
+  0x00000001191d841d:   hlt
+  0x00000001191d841e:   hlt
+  0x00000001191d841f:   hlt
+[Exception Handler]
+  0x00000001191d8420:   jmpq   0x00000001117c2580           ;   {no_reloc}
+[Deopt Handler Code]
+  0x00000001191d8425:   callq  0x00000001191d842a
+  0x00000001191d842a:   subq   $0x5,(%rsp)
+  0x00000001191d842f:   jmpq   0x00000001117150a0           ;   {runtime_call DeoptimizationBlob}
+  0x00000001191d8434:   hlt
+  0x00000001191d8435:   hlt
+  0x00000001191d8436:   hlt
+  0x00000001191d8437:   hlt
+--------------------------------------------------------------------------------
