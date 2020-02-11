@@ -19,6 +19,10 @@ object ShiftingBitMask extends SearchAlgorithm {
       (currentMask & successBitMask) == 0
     }
 
+    override def reset(): Unit = {
+      currentMask = 0L
+    }
+
   }
 
   final class Context(
