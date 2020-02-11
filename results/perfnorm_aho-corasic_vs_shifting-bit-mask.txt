@@ -1,0 +1,85 @@
+Benchmark                              (searchInput)  Mode  Cnt      Score   Error  Units
+
+ahoCorasic                                   REGULAR  avgt    5      4.961 ± 0.070  us/op
+ahoCorasic:CPI                               REGULAR  avgt           0.644           #/op
+ahoCorasic:L1-dcache-load-misses             REGULAR  avgt           1.595           #/op
+ahoCorasic:L1-dcache-loads                   REGULAR  avgt        3053.741           #/op
+ahoCorasic:L1-dcache-stores                  REGULAR  avgt          10.762           #/op
+ahoCorasic:L1-icache-load-misses             REGULAR  avgt           3.255           #/op
+ahoCorasic:LLC-load-misses                   REGULAR  avgt           0.294           #/op
+ahoCorasic:LLC-loads                         REGULAR  avgt           0.527           #/op
+ahoCorasic:LLC-store-misses                  REGULAR  avgt           0.047           #/op
+ahoCorasic:LLC-stores                        REGULAR  avgt           0.162           #/op
+ahoCorasic:branch-misses                     REGULAR  avgt           1.197           #/op
+ahoCorasic:branches                          REGULAR  avgt        3422.580           #/op
+ahoCorasic:cycles                            REGULAR  avgt        9317.746           #/op
+ahoCorasic:dTLB-load-misses                  REGULAR  avgt           0.037           #/op
+ahoCorasic:dTLB-loads                        REGULAR  avgt        3057.256           #/op
+ahoCorasic:dTLB-store-misses                 REGULAR  avgt           0.006           #/op
+ahoCorasic:dTLB-stores                       REGULAR  avgt          11.147           #/op
+ahoCorasic:iTLB-load-misses                  REGULAR  avgt           0.011           #/op
+ahoCorasic:iTLB-loads                        REGULAR  avgt           0.073           #/op
+ahoCorasic:instructions                      REGULAR  avgt       14470.706           #/op
+
+ahoCorasic                                WORST_CASE  avgt    5      5.103 ± 0.090  us/op
+ahoCorasic:CPI                            WORST_CASE  avgt           0.677           #/op
+ahoCorasic:L1-dcache-load-misses          WORST_CASE  avgt          67.169           #/op
+ahoCorasic:L1-dcache-loads                WORST_CASE  avgt        2995.065           #/op
+ahoCorasic:L1-dcache-stores               WORST_CASE  avgt           9.426           #/op
+ahoCorasic:L1-icache-load-misses          WORST_CASE  avgt           2.535           #/op
+ahoCorasic:LLC-load-misses                WORST_CASE  avgt           0.403           #/op
+ahoCorasic:LLC-loads                      WORST_CASE  avgt           0.652           #/op
+ahoCorasic:LLC-store-misses               WORST_CASE  avgt           0.046           #/op
+ahoCorasic:LLC-stores                     WORST_CASE  avgt           0.118           #/op
+ahoCorasic:branch-misses                  WORST_CASE  avgt           1.200           #/op
+ahoCorasic:branches                       WORST_CASE  avgt        3343.467           #/op
+ahoCorasic:cycles                         WORST_CASE  avgt        9565.148           #/op
+ahoCorasic:dTLB-load-misses               WORST_CASE  avgt           0.045           #/op
+ahoCorasic:dTLB-loads                     WORST_CASE  avgt        2998.330           #/op
+ahoCorasic:dTLB-store-misses              WORST_CASE  avgt           0.007           #/op
+ahoCorasic:dTLB-stores                    WORST_CASE  avgt          10.989           #/op
+ahoCorasic:iTLB-load-misses               WORST_CASE  avgt           0.026           #/op
+ahoCorasic:iTLB-loads                     WORST_CASE  avgt           0.097           #/op
+ahoCorasic:instructions                   WORST_CASE  avgt       14132.979           #/op
+
+shiftingBitMask                              REGULAR  avgt    5      3.281 ± 0.153  us/op
+shiftingBitMask:CPI                          REGULAR  avgt           0.300           #/op
+shiftingBitMask:L1-dcache-load-misses        REGULAR  avgt           0.958           #/op
+shiftingBitMask:L1-dcache-loads              REGULAR  avgt        3044.032           #/op
+shiftingBitMask:L1-dcache-stores             REGULAR  avgt           9.239           #/op
+shiftingBitMask:L1-icache-load-misses        REGULAR  avgt           1.880           #/op
+shiftingBitMask:LLC-load-misses              REGULAR  avgt           0.171           #/op
+shiftingBitMask:LLC-loads                    REGULAR  avgt           0.320           #/op
+shiftingBitMask:LLC-store-misses             REGULAR  avgt           0.022           #/op
+shiftingBitMask:LLC-stores                   REGULAR  avgt           0.056           #/op
+shiftingBitMask:branch-misses                REGULAR  avgt           1.094           #/op
+shiftingBitMask:branches                     REGULAR  avgt        3414.591           #/op
+shiftingBitMask:cycles                       REGULAR  avgt        6143.270           #/op
+shiftingBitMask:dTLB-load-misses             REGULAR  avgt           0.030           #/op
+shiftingBitMask:dTLB-loads                   REGULAR  avgt        3033.161           #/op
+shiftingBitMask:dTLB-store-misses            REGULAR  avgt           0.003           #/op
+shiftingBitMask:dTLB-stores                  REGULAR  avgt           7.202           #/op
+shiftingBitMask:iTLB-load-misses             REGULAR  avgt           0.001           #/op
+shiftingBitMask:iTLB-loads                   REGULAR  avgt           0.027           #/op
+shiftingBitMask:instructions                 REGULAR  avgt       20504.508           #/op
+
+shiftingBitMask                           WORST_CASE  avgt    5      3.627 ± 0.166  us/op
+shiftingBitMask:CPI                       WORST_CASE  avgt           0.314           #/op
+shiftingBitMask:L1-dcache-load-misses     WORST_CASE  avgt           0.832           #/op
+shiftingBitMask:L1-dcache-loads           WORST_CASE  avgt        3002.110           #/op
+shiftingBitMask:L1-dcache-stores          WORST_CASE  avgt           7.434           #/op
+shiftingBitMask:L1-icache-load-misses     WORST_CASE  avgt           2.128           #/op
+shiftingBitMask:LLC-load-misses           WORST_CASE  avgt           0.218           #/op
+shiftingBitMask:LLC-loads                 WORST_CASE  avgt           0.399           #/op
+shiftingBitMask:LLC-store-misses          WORST_CASE  avgt           0.037           #/op
+shiftingBitMask:LLC-stores                WORST_CASE  avgt           0.092           #/op
+shiftingBitMask:branch-misses             WORST_CASE  avgt           1.086           #/op
+shiftingBitMask:branches                  WORST_CASE  avgt        3362.082           #/op
+shiftingBitMask:cycles                    WORST_CASE  avgt        6803.594           #/op
+shiftingBitMask:dTLB-load-misses          WORST_CASE  avgt           0.020           #/op
+shiftingBitMask:dTLB-loads                WORST_CASE  avgt        3002.702           #/op
+shiftingBitMask:dTLB-store-misses         WORST_CASE  avgt           0.002           #/op
+shiftingBitMask:dTLB-stores               WORST_CASE  avgt           9.552           #/op
+shiftingBitMask:iTLB-load-misses          WORST_CASE  avgt           0.003           #/op
+shiftingBitMask:iTLB-loads                WORST_CASE  avgt           0.025           #/op
+shiftingBitMask:instructions              WORST_CASE  avgt       21661.154           #/op
