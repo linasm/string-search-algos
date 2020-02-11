@@ -87,7 +87,7 @@ object AhoCorasic extends MultiSearchAlgorithm {
         val next = currentPosition + toUnsignedInt(signedByte)
 
         if (jumpTableBuilder(next) == -1) {
-          jumpTableBuilder(next) = matchForBuilder.size << BitsPerSymbol
+          jumpTableBuilder(next) = jumpTableBuilder.size
           jumpTableBuilder ++= emptyJumpTableSegment
           matchForBuilder += -1
         }
