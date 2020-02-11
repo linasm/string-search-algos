@@ -20,7 +20,7 @@ object AhoCorasic extends MultiSearchAlgorithm {
     }
 
     override def reset(): Unit = {
-      currentPosition = 0
+      currentNode = trieRoot
     }
 
     override def needleLength: Int = {
