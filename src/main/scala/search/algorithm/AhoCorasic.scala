@@ -69,6 +69,8 @@ object AhoCorasic extends MultiSearchAlgorithm {
     new Context(jumpTable, matchFor, needles.toArray.map(_.length))
   }
 
+  override def apply(needle: Array[Byte]): Context = apply(Seq(needle): _*)
+
   private def buildJumpTable(needles: Seq[Array[Byte]]): (Array[Int], Array[Int]) = {
 
     val emptyJumpTableSegment = Array.fill(AlphabetSize)(-1)
