@@ -16,8 +16,8 @@ import search.engine._
 @State(Scope.Benchmark)
 @Fork(
   value = 1,
-  jvm = "/Library/Java/JavaVirtualMachines/graalvm-ee-java11-19.3.0.2/Contents/Home/bin/java",
-//  jvm = "/Library/Java/JavaVirtualMachines/graalvm-ce-java11-20.0.0/Contents/Home/bin/java",
+//  jvm = "/Library/Java/JavaVirtualMachines/graalvm-ee-java11-19.3.0.2/Contents/Home/bin/java",
+  jvm = "/Library/Java/JavaVirtualMachines/graalvm-ce-java11-20.0.0/Contents/Home/bin/java",
   // Requires hsdis-amd64.dylib in jdk/Contents/Home/bin:
   jvmArgs = Array("-Xmx8G")//, "-XX:+UnlockDiagnosticVMOptions", "-XX:CompileCommand=print,*.shiftingBitMask", "-XX:PrintAssemblyOptions=intel")
 )

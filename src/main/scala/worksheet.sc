@@ -20,3 +20,4 @@ Integer.toUnsignedLong(-1073742256)
 SearchInput.Hamlet.getBytes(Charset.forName("us-ascii")).length
 
 1024 * 1024 * 1024 / SearchInput.Hamlet.length
+

@@ -31,6 +31,7 @@ object ShiftingBitMask extends SearchAlgorithm {
         //      bitMasks5: Array[Long],
         //      bitMasks6: Array[Long],
         //      bitMasks7: Array[Long],
+        unrolledBitMasks: Array[Long],
         unrolledBitMasksAddress: Long,
         successBitMask: Long,
         unrolledSuccessBitMask: Long,
@@ -39,8 +40,8 @@ object ShiftingBitMask extends SearchAlgorithm {
       private[this] var currentMask = 0L
 
       override def process(value: Byte): Boolean = {
-        currentMask = ((currentMask << 1) | 1) & UNSAFE.getLong(unrolledBitMasksAddress + 8 * toUnsignedInt(value))
-        //currentMask = ((currentMask << 1) | 1) & bitMasks(toUnsignedInt(value))
+        //currentMask = ((currentMask << 1) | 1) & UNSAFE.getLong(unrolledBitMasksAddress + 8 * toUnsignedInt(value))
+        currentMask = ((currentMask << 1) | 1) & bitMasks(toUnsignedInt(value))
         (currentMask & successBitMask) == 0
       }
 
@@ -69,15 +70,26 @@ object ShiftingBitMask extends SearchAlgorithm {
         //      value >>>= 8
         //      currentMask &= bitMasks(value.asInstanceOf[Int] & 0xFF)
         //var low = value //(_value & -1).asInstanceOf[Int]
-        currentMask = ((currentMask << 8) | 255L) &
-          UNSAFE.getLong(unrolledBitMasksAddress + 8 * (value >>> 56)) &
-          UNSAFE.getLong(unrolledBitMasksAddress + 8 * 256 + 8 * ((value >>> 48) & 0xFF)) &
-          UNSAFE.getLong(unrolledBitMasksAddress + 2 * 8 * 256 + 8 * ((value >>> 40) & 0xFF)) &
-          UNSAFE.getLong(unrolledBitMasksAddress + 3 * 8 * 256 + 8 * ((value >>> 32) & 0xFF)) &
-          UNSAFE.getLong(unrolledBitMasksAddress + 4 * 8 * 256 + 8 * ((value >>> 24) & 0xFF)) &
-          UNSAFE.getLong(unrolledBitMasksAddress + 5 * 8 * 256 + 8 * ((value >>> 16) & 0xFF)) &
-          UNSAFE.getLong(unrolledBitMasksAddress + 6 * 8 * 256 + 8 * ((value >>> 8) & 0xFF)) &
-          UNSAFE.getLong(unrolledBitMasksAddress + 7 * 8 * 256 + 8 * (value & 0xFF))
+
+        currentMask = ((currentMask << 8) | 0xFFl) &
+          unrolledBitMasks((7 * 256 + (value & 0xFF)).asInstanceOf[Int]) &
+          unrolledBitMasks((value >>> 56).asInstanceOf[Int]) &
+          unrolledBitMasks((256 + ((value >>> 48) & 0xFF)).asInstanceOf[Int]) &
+          unrolledBitMasks((2 * 256 + ((value >>> 40) & 0xFF)).asInstanceOf[Int]) &
+          unrolledBitMasks((3 * 256 + ((value >>> 32) & 0xFF)).asInstanceOf[Int]) &
+          unrolledBitMasks((4 * 256 + ((value >>> 24) & 0xFF)).asInstanceOf[Int]) &
+          unrolledBitMasks((5 * 256 + ((value >>> 16) & 0xFF)).asInstanceOf[Int]) &
+          unrolledBitMasks((6 * 256 + ((value >>> 8) & 0xFF)).asInstanceOf[Int])
+
+//        currentMask = ((currentMask << 8) | 255L) &
+//          UNSAFE.getLong(unrolledBitMasksAddress + 8 * (value >>> 56)) &
+//          UNSAFE.getLong(unrolledBitMasksAddress + 8 * 256 + 8 * ((value >>> 48) & 0xFF)) &
+//          UNSAFE.getLong(unrolledBitMasksAddress + 2 * 8 * 256 + 8 * ((value >>> 40) & 0xFF)) &
+//          UNSAFE.getLong(unrolledBitMasksAddress + 3 * 8 * 256 + 8 * ((value >>> 32) & 0xFF)) &
+//          UNSAFE.getLong(unrolledBitMasksAddress + 4 * 8 * 256 + 8 * ((value >>> 24) & 0xFF)) &
+//          UNSAFE.getLong(unrolledBitMasksAddress + 5 * 8 * 256 + 8 * ((value >>> 16) & 0xFF)) &
+//          UNSAFE.getLong(unrolledBitMasksAddress + 6 * 8 * 256 + 8 * ((value >>> 8) & 0xFF)) &
+//          UNSAFE.getLong(unrolledBitMasksAddress + 7 * 8 * 256 + 8 * (value & 0xFF))
 
         //      var ml = unrolledBitMasks(low & 0xFF)
         //      low >>>= 8
@@ -133,7 +145,7 @@ object ShiftingBitMask extends SearchAlgorithm {
     for (i <- unrolledBitMasks.indices) UNSAFE.putLong(x + java.lang.Long.BYTES * i, unrolledBitMasks(i))
 
     override def newProcessor: Processor = new Processor(
-      bitMasks, x, successBitMask, unrolledSuccessBitMask, needleLength)
+      bitMasks, unrolledBitMasks, x, successBitMask, unrolledSuccessBitMask, needleLength)
 
     override def close(): Unit = UNSAFE.freeMemory(x)
   }
