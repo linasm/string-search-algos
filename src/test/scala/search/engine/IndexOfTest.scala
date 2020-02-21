@@ -1,5 +1,6 @@
 package search.engine
 
+import java.nio.{ByteBuffer, ByteOrder}
 import java.util
 
 import org.scalacheck.Arbitrary.arbitrary
@@ -25,16 +26,16 @@ abstract class IndexOfTest(algorithm: SearchAlgorithm)
       Gen.choose(0, maxIndex)) { (a, b) =>
 
       val from = math.min(a, b)
-      val until = math.min(from + 64, math.max(a, b) + 1)
+      val until = math.min(from + 57, math.max(a, b) + 1)
 
       val needle = haystack.slice(from, until)
 
       val searchProcessor = algorithm(needle).newProcessor
 
-      val indexOf = SearchEngine.indexOf(haystack, searchProcessor)
+      val index = indexOf(haystack, searchProcessor)
 
-      indexOf <= from &&
-        util.Arrays.equals(needle, haystack.slice(indexOf, indexOf + needle.length))
+      index <= from &&
+        util.Arrays.equals(needle, haystack.slice(index, index + needle.length))
     }
   }
 
@@ -43,11 +44,20 @@ abstract class IndexOfTest(algorithm: SearchAlgorithm)
     val haystack = haystackList.toArray
     val needle = needleList.toArray
 
-    (needle.length <= 64 && haystack.indexOfSlice(needle) == -1) ==> {
+    (needle.length <= 57 && haystack.indexOfSlice(needle) == -1) ==> {
 
       val searchProcessor = algorithm(needle).newProcessor
 
-      SearchEngine.indexOf(haystack, searchProcessor) == -1
+      indexOf(haystack, searchProcessor) == -1
+    }
+  }
+
+  private def indexOf(haystack: Array[Byte], searchProcessor: SearchProcessor): Int = {
+    searchProcessor match {
+      case unrolledSearchProcessor: UnrolledSearchProcessor =>
+        SearchEngine.indexOf(ByteBuffer.wrap(haystack).order(ByteOrder.LITTLE_ENDIAN), unrolledSearchProcessor)
+      case _ =>
+        SearchEngine.indexOf(haystack, searchProcessor)
     }
   }
 

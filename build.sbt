@@ -5,7 +5,8 @@ lazy val root = (project in file(".")).
   settings(
     name := "string-search-algos",
     version := "1.0",
-    scalaVersion := "2.13.1"
+    scalaVersion := "2.13.1",
+    javaOptions += "-Xmx8G",
   )
 
 libraryDependencies += "com.google.guava" % "guava" % "28.2-jre"

@@ -1,10 +1,28 @@
 package search.engine
 
+import java.nio.{ByteBuffer, ByteOrder}
+
 object SearchEngine {
 
   sealed trait MultiSearchResult
   case class Found(foundAt: Int, foundNeedleId: Int) extends MultiSearchResult
   case object NotFound extends MultiSearchResult
+
+  def indexOf(haystack: ByteBuffer, processor: UnrolledSearchProcessor): Int = {
+
+    require(haystack.order == ByteOrder.LITTLE_ENDIAN)
+
+    while (haystack.remaining >= 8) {
+      val pos = processor.processUnrolled(haystack.getLong)
+      if (pos >= 0) return haystack.position() - pos// - processor.needleLength
+    }
+
+    while (haystack.hasRemaining) {
+      if (!processor.process(haystack.get)) return haystack.position() - processor.needleLength
+    }
+
+    -1
+  }
 
   def indexOf(haystack: Array[Byte], processor: SearchProcessor, from: Int = 0): Int = {
 
