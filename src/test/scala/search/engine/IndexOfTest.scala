@@ -53,11 +53,14 @@ abstract class IndexOfTest(algorithm: SearchAlgorithm)
   }
 
   private def indexOf(haystack: Array[Byte], searchProcessor: SearchProcessor): Int = {
+
+    val haystackBuffer = ByteBuffer.wrap(haystack).order(ByteOrder.LITTLE_ENDIAN)
+
     searchProcessor match {
       case unrolledSearchProcessor: UnrolledSearchProcessor =>
-        SearchEngine.indexOf(ByteBuffer.wrap(haystack).order(ByteOrder.LITTLE_ENDIAN), unrolledSearchProcessor)
+        NioSearchEngine.indexOf(haystackBuffer, unrolledSearchProcessor)
       case _ =>
-        SearchEngine.indexOf(haystack, searchProcessor)
+        NioSearchEngine.indexOf(haystackBuffer, searchProcessor)
     }
   }
 

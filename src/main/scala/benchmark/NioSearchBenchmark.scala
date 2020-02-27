@@ -1,6 +1,5 @@
 package benchmark
 
-import java.nio.charset.Charset
 import java.nio.{ByteBuffer, ByteOrder}
 import java.util.concurrent.TimeUnit
 
@@ -16,12 +15,14 @@ import search.engine._
 @State(Scope.Benchmark)
 @Fork(
   value = 1,
+//  jvm = "/Library/Java/JavaVirtualMachines/jdk-14.jdk/Contents/Home/bin/java",
 //  jvm = "/Library/Java/JavaVirtualMachines/graalvm-ee-java11-19.3.0.2/Contents/Home/bin/java",
   jvm = "/Library/Java/JavaVirtualMachines/graalvm-ce-java11-20.0.0/Contents/Home/bin/java",
+//  jvm = "/Library/Java/JavaVirtualMachines/adoptopenjdk-13.jdk/Contents/Home/bin/java",
   // Requires hsdis-amd64.dylib in jdk/Contents/Home/bin:
-  jvmArgs = Array("-Xmx8G")//, "-XX:+UnlockDiagnosticVMOptions", "-XX:CompileCommand=print,*.shiftingBitMask", "-XX:PrintAssemblyOptions=intel")
+  //jvmArgs = Array("-Xmx8G")//, "-XX:+UnlockDiagnosticVMOptions", "-XX:CompileCommand=print,*.shiftingBitMask", "-XX:PrintAssemblyOptions=intel")
 )
-class SearchNioBenchmark {
+class NioSearchBenchmark {
 
   @Param
   var searchInput: SearchInputType = _
@@ -29,7 +30,9 @@ class SearchNioBenchmark {
   private var needleBytes, haystackBytes: Array[Byte] = _
   private var haystack: ByteBuffer = _
 
-  private var kmpContext, shiftingBitMaskContext, ahoCorasicContext: SearchContext = _
+  private var kmpContext: KnuthMorrisPratt.Context = _
+  private var shiftingBitMaskContext: ShiftingBitMask.Context = _
+  private var ahoCorasicContext: AhoCorasic.Context = _
 
   @Setup
   def setup(): Unit = {
@@ -42,21 +45,32 @@ class SearchNioBenchmark {
     ahoCorasicContext = AhoCorasic(needleBytes)
   }
 
-//  @Benchmark
-//  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-//  def ahoCorasic: Int = SearchEngine.indexOf(haystackBytes, ahoCorasicContext.newProcessor)
-//
-//  @Benchmark
-//  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-//  def kmp: Int = SearchEngine.indexOf(haystackBytes, kmpContext.newProcessor)
+  @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
+  def ahoCorasic: Int = {
+    haystack.rewind()
+    NioSearchEngine.indexOf(haystack, ahoCorasicContext.newProcessor)
+  }
 
   @Benchmark
   @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-  def shiftingBitMask: Int = {
+  def kmp: Int = {
     haystack.rewind()
-    SearchEngine.indexOf(haystack, shiftingBitMaskContext.newProcessor.asInstanceOf[UnrolledSearchProcessor])
+    NioSearchEngine.indexOf(haystack, kmpContext.newProcessor)
+  }
+
+  @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
+  def shiftingBitMaskSimple: Int = {
+    haystack.rewind()
+    NioSearchEngine.indexOf(haystack, shiftingBitMaskContext.newProcessor.asInstanceOf[SearchProcessor])
+  }
+
+  @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
+  def shiftingBitMaskUnrolled: Int = {
+    haystack.rewind()
+    NioSearchEngine.indexOf(haystack, shiftingBitMaskContext.newProcessor)
   }
 
 }
-
-

@@ -38,6 +38,16 @@ object ShiftingBitMask extends SearchAlgorithm {
         override val needleLength: Int) extends UnrolledSearchProcessor {
 
       private[this] var currentMask = 0L
+      private[this] var previouslyFound = 0L
+
+      override def hasPreviouslyFound: Boolean = previouslyFound != 0
+
+      override def nextOffset(): Int = {
+        require(previouslyFound != 0, "No previously found matches")
+        val offset = 64 - java.lang.Long.numberOfLeadingZeros(previouslyFound)
+        previouslyFound ^= 1L << (offset - 1)
+        offset
+      }
 
       override def process(value: Byte): Boolean = {
         //currentMask = ((currentMask << 1) | 1) & UNSAFE.getLong(unrolledBitMasksAddress + 8 * toUnsignedInt(value))
@@ -47,9 +57,10 @@ object ShiftingBitMask extends SearchAlgorithm {
 
       override def reset(): Unit = {
         currentMask = 0L
+        previouslyFound = 0L
       }
 
-      override def processUnrolled(value: Long): Int = {
+      override def processUnrolled(value: Long): Boolean = {
 
         //      var value = _value
         //
@@ -81,15 +92,15 @@ object ShiftingBitMask extends SearchAlgorithm {
           unrolledBitMasks((5 * 256 + ((value >>> 16) & 0xFF)).asInstanceOf[Int]) &
           unrolledBitMasks((6 * 256 + ((value >>> 8) & 0xFF)).asInstanceOf[Int])
 
-//        currentMask = ((currentMask << 8) | 255L) &
-//          UNSAFE.getLong(unrolledBitMasksAddress + 8 * (value >>> 56)) &
-//          UNSAFE.getLong(unrolledBitMasksAddress + 8 * 256 + 8 * ((value >>> 48) & 0xFF)) &
-//          UNSAFE.getLong(unrolledBitMasksAddress + 2 * 8 * 256 + 8 * ((value >>> 40) & 0xFF)) &
-//          UNSAFE.getLong(unrolledBitMasksAddress + 3 * 8 * 256 + 8 * ((value >>> 32) & 0xFF)) &
-//          UNSAFE.getLong(unrolledBitMasksAddress + 4 * 8 * 256 + 8 * ((value >>> 24) & 0xFF)) &
-//          UNSAFE.getLong(unrolledBitMasksAddress + 5 * 8 * 256 + 8 * ((value >>> 16) & 0xFF)) &
-//          UNSAFE.getLong(unrolledBitMasksAddress + 6 * 8 * 256 + 8 * ((value >>> 8) & 0xFF)) &
-//          UNSAFE.getLong(unrolledBitMasksAddress + 7 * 8 * 256 + 8 * (value & 0xFF))
+        //        currentMask = ((currentMask << 8) | 255L) &
+        //          UNSAFE.getLong(unrolledBitMasksAddress + 8 * (value >>> 56)) &
+        //          UNSAFE.getLong(unrolledBitMasksAddress + 8 * 256 + 8 * ((value >>> 48) & 0xFF)) &
+        //          UNSAFE.getLong(unrolledBitMasksAddress + 2 * 8 * 256 + 8 * ((value >>> 40) & 0xFF)) &
+        //          UNSAFE.getLong(unrolledBitMasksAddress + 3 * 8 * 256 + 8 * ((value >>> 32) & 0xFF)) &
+        //          UNSAFE.getLong(unrolledBitMasksAddress + 4 * 8 * 256 + 8 * ((value >>> 24) & 0xFF)) &
+        //          UNSAFE.getLong(unrolledBitMasksAddress + 5 * 8 * 256 + 8 * ((value >>> 16) & 0xFF)) &
+        //          UNSAFE.getLong(unrolledBitMasksAddress + 6 * 8 * 256 + 8 * ((value >>> 8) & 0xFF)) &
+        //          UNSAFE.getLong(unrolledBitMasksAddress + 7 * 8 * 256 + 8 * (value & 0xFF))
 
         //      var ml = unrolledBitMasks(low & 0xFF)
         //      low >>>= 8
@@ -120,10 +131,13 @@ object ShiftingBitMask extends SearchAlgorithm {
         //      currentMask &= bitMasks1(toUnsignedInt(byteBuffer.get))
         //      currentMask &= bitMasks(toUnsignedInt(byteBuffer.get))
 
-        val x = currentMask & unrolledSuccessBitMask
+        val result = currentMask & unrolledSuccessBitMask
 
-        if (x == 0) -1
-        else 64 - java.lang.Long.numberOfLeadingZeros(x)
+        if (result == 0) true
+        else {
+          previouslyFound = result
+          false
+        }
       }
 
     }
