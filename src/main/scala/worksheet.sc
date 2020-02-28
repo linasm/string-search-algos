@@ -1,17 +1,19 @@
-import java.util.regex.Pattern
+import java.nio.{ByteBuffer, ByteOrder}
 
-import search.algorithm.AhoCorasic
+import search.algorithm.ShiftingBitMask
 import search.engine.SearchEngine
 
-val needle = "A" * 500000 + "B"
-val haystack = "A" * 1000000 + "B"
+val haystackBytes = "bababbaabaaba".getBytes
 
-// slow! haystack.indexOf(needle)
+val p = ShiftingBitMask.init("ba".getBytes).newProcessor
 
-haystack.indexOfSlice(needle) // fast (Knuth-Morris-Pratt, Scala standard library)
+val haystack = ByteBuffer.wrap(haystackBytes).order(ByteOrder.LITTLE_ENDIAN)
 
-val matcher = Pattern.compile(needle).matcher(haystack)
-matcher.find()
-matcher.start()
+haystack.remaining()
 
-SearchEngine.indexOfMultiple("abc".getBytes, AhoCorasic("x".getBytes).newProcessor)
+SearchEngine.indexOf(haystack, p)
+SearchEngine.indexOf(haystack, p)
+SearchEngine.indexOf(haystack, p)
+SearchEngine.indexOf(haystack, p)
+SearchEngine.indexOf(haystack, p)
+SearchEngine.indexOf(haystack, p)

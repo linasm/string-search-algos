@@ -9,7 +9,7 @@ import search.algorithm.{AhoCorasic, KnuthMorrisPratt, SearchAlgorithm, Shifting
 
 abstract class IndexOfTest(algorithmClass: Class[_], algorithm: Array[Byte] => SearchAlgorithm)
   extends Properties(s"indexOf(${algorithmClass.getSimpleName})")
-    with ByteBufferConverter {
+    with ByteBufferConverter with IndexOfSupport {
 
   override def overrideParameters(p: Test.Parameters): Test.Parameters = {
       p.withMinSuccessfulTests(10000)
@@ -25,16 +25,16 @@ abstract class IndexOfTest(algorithmClass: Class[_], algorithm: Array[Byte] => S
       Gen.choose(0, maxIndex)) { (a, b) =>
 
       val from = math.min(a, b)
-      val until = math.min(from + 64, math.max(a, b) + 1)
+      val until = math.min(from + 57, math.max(a, b) + 1)
 
       val needle = haystack.slice(from, until)
 
       val searchProcessor = algorithm(needle).newProcessor
 
-      val indexOf = SearchEngine.indexOf(toByteBuffer(haystack), searchProcessor)
+      val result = indexOf(toByteBuffer(haystack), searchProcessor)
 
-      indexOf <= from &&
-        util.Arrays.equals(needle, haystack.slice(indexOf, indexOf + needle.length))
+      result <= from &&
+        util.Arrays.equals(needle, haystack.slice(result, result + needle.length))
     }
   }
 
@@ -43,11 +43,11 @@ abstract class IndexOfTest(algorithmClass: Class[_], algorithm: Array[Byte] => S
     val haystack = haystackList.toArray
     val needle = needleList.toArray
 
-    (needle.length <= 64 && haystack.indexOfSlice(needle) == -1) ==> {
+    (needle.length <= 57 && haystack.indexOfSlice(needle) == -1) ==> {
 
       val searchProcessor = algorithm(needle).newProcessor
 
-      SearchEngine.indexOf(toByteBuffer(haystack), searchProcessor) == -1
+      indexOf(toByteBuffer(haystack), searchProcessor) == -1
     }
   }
 

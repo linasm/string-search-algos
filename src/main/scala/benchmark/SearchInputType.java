@@ -17,7 +17,7 @@ public enum SearchInputType {
   WORST_CASE {
     @Override
     String getNeedle() {
-      return "A".repeat(63) + "B";
+      return "A".repeat(56) + "B";
     }
 
     @Override

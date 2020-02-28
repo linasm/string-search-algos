@@ -6,13 +6,14 @@ public final class ShiftingBitMask implements SearchAlgorithm {
   private final long successBitMask;
   private final int needleLength;
 
-  private final static class Processor implements SearchProcessor {
+  private final static class Processor implements UnrolledSearchProcessor {
 
     private final long[] bitMasks;
     private final long successBit;
     private final int needleLength;
 
     private long currentMask;
+    private long previouslyFound;
 
     private Processor(long[] bitMasks, long successBit, int needleLength) {
       this.bitMasks = bitMasks;
@@ -27,6 +28,42 @@ public final class ShiftingBitMask implements SearchAlgorithm {
     }
 
     @Override
+    public boolean process(long value) {
+
+      long result;
+
+      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value & 0xFF)];
+      result = currentMask & successBit;
+
+      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value >>> 8) & 0xFF];
+      result = (result << 1) | (currentMask & successBit);
+
+      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value >>> 16) & 0xFF];
+      result = (result << 1) | (currentMask & successBit);
+
+      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value >>> 24) & 0xFF];
+      result = (result << 1) | (currentMask & successBit);
+
+      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value >>> 32) & 0xFF];
+      result = (result << 1) | (currentMask & successBit);
+
+      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value >>> 40) & 0xFF];
+      result = (result << 1) | (currentMask & successBit);
+
+      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value >>> 48) & 0xFF];
+      result = (result << 1) | (currentMask & successBit);
+
+      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value >>> 56)];
+      result = (result << 1) | (currentMask & successBit);
+
+      if (result == 0) return true;
+      else {
+        previouslyFound = result;
+        return false;
+      }
+    }
+
+    @Override
     public int needleLength() {
       return needleLength;
     }
@@ -34,14 +71,30 @@ public final class ShiftingBitMask implements SearchAlgorithm {
     @Override
     public void reset() {
       currentMask = 0;
+      previouslyFound = 0;
+    }
+
+    @Override
+    public boolean hasPreviouslyFound() {
+      return previouslyFound != 0;
+    }
+
+    @Override
+    public int nextOffset() {
+      assert previouslyFound != 0;
+
+      final int offset = 64 - Long.numberOfLeadingZeros(previouslyFound);
+      previouslyFound ^= 1L << (offset - 1);
+
+      return offset;
     }
 
   }
 
   private ShiftingBitMask(byte[] needle) {
 
-    if (needle.length > 64) {
-      throw new IllegalArgumentException("Maximum supported search pattern length is 64, got " + needle.length);
+    if (needle.length > 57) {
+      throw new IllegalArgumentException("Maximum supported search pattern length is 57, got " + needle.length);
     }
 
     long bit = 1L;

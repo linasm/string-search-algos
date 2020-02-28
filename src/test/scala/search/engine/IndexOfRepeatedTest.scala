@@ -5,15 +5,13 @@ import org.scalatest.wordspec.AnyWordSpec
 import search.algorithm.{AhoCorasic, KnuthMorrisPratt, SearchAlgorithm, ShiftingBitMask}
 
 abstract class IndexOfRepeatedTest(algorithm: Array[Byte] => SearchAlgorithm)
-  extends AnyWordSpec with Matchers with ByteBufferConverter {
-
-  import SearchEngine.indexOf
+  extends AnyWordSpec with Matchers with ByteBufferConverter with IndexOfSupport {
 
   "find the needle repeatedly" in {
 
     val haystack = toByteBuffer("abababaabab")
 
-    val processor = AhoCorasic.init("ba".getBytes).newProcessor
+    val processor = algorithm("ba".getBytes).newProcessor
 
     indexOf(haystack, processor) shouldEqual 1
     indexOf(haystack, processor) shouldEqual 3
@@ -26,7 +24,7 @@ abstract class IndexOfRepeatedTest(algorithm: Array[Byte] => SearchAlgorithm)
 
     val haystack = toByteBuffer("abcabcabcabc")
 
-    val processor = AhoCorasic.init("abcab".getBytes).newProcessor
+    val processor = algorithm("abcab".getBytes).newProcessor
 
     indexOf(haystack, processor) shouldEqual 0
     indexOf(haystack, processor) shouldEqual 3

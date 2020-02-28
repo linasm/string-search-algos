@@ -60,6 +60,13 @@ class SearchBenchmark {
   @CompilerControl(CompilerControl.Mode.DONT_INLINE)
   def shiftingBitMaskSimple: Int = {
     haystack.rewind()
+    SearchEngine.indexOf(haystack, shiftingBitMaskContext.newProcessor.asInstanceOf[SearchProcessor])
+  }
+
+  @Benchmark
+  @CompilerControl(CompilerControl.Mode.DONT_INLINE)
+  def shiftingBitMaskUnrolled: Int = {
+    haystack.rewind()
     SearchEngine.indexOf(haystack, shiftingBitMaskContext.newProcessor)
   }
 
