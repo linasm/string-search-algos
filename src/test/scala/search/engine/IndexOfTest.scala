@@ -7,9 +7,8 @@ import org.scalacheck.Prop.{forAll, propBoolean}
 import org.scalacheck.{Gen, Properties, Test}
 import search.algorithm.{AhoCorasic, KnuthMorrisPratt, SearchAlgorithm, ShiftingBitMask}
 
-
-abstract class IndexOfTest(algorithm: SearchAlgorithm)
-  extends Properties(s"indexOf(${algorithm.getClass.getSimpleName})") {
+abstract class IndexOfTest(algorithmClass: Class[_], algorithm: Array[Byte] => SearchAlgorithm)
+  extends Properties(s"indexOf(${algorithmClass.getSimpleName})") {
 
   override def overrideParameters(p: Test.Parameters): Test.Parameters = {
       p.withMinSuccessfulTests(10000)
@@ -31,7 +30,7 @@ abstract class IndexOfTest(algorithm: SearchAlgorithm)
 
       val searchProcessor = algorithm(needle).newProcessor
 
-      val indexOf = SearchEngine.indexOf(haystack, searchProcessor)
+      val indexOf = SearchEngine.indexOf(haystack, searchProcessor, 0)
 
       indexOf <= from &&
         util.Arrays.equals(needle, haystack.slice(indexOf, indexOf + needle.length))
@@ -47,14 +46,14 @@ abstract class IndexOfTest(algorithm: SearchAlgorithm)
 
       val searchProcessor = algorithm(needle).newProcessor
 
-      SearchEngine.indexOf(haystack, searchProcessor) == -1
+      SearchEngine.indexOf(haystack, searchProcessor, 0) == -1
     }
   }
 
 }
 
-object KmpIndexOfTest extends IndexOfTest(KnuthMorrisPratt)
+object KmpIndexOfTest extends IndexOfTest(classOf[KnuthMorrisPratt], KnuthMorrisPratt.init)
 
-object ShiftingBitMaskIndexOfTest extends IndexOfTest(ShiftingBitMask)
+object ShiftingBitMaskIndexOfTest extends IndexOfTest(classOf[ShiftingBitMask], ShiftingBitMask.init)
 
-object AhoCorasicIndexOfTest extends IndexOfTest(AhoCorasic)
+object AhoCorasicIndexOfTest extends IndexOfTest(classOf[AhoCorasic], AhoCorasic.init(_))

@@ -31,7 +31,7 @@ class SearchBenchmark {
 
   private var needleBytes, haystackBytes: Array[Byte] = _
 
-  private var kmpContext, shiftingBitMaskContext, ahoCorasicContext: SearchContext = _
+  private var kmpContext, shiftingBitMaskContext, ahoCorasicContext: SearchAlgorithm = _
 
   private var pattern: regex.Pattern = _
 
@@ -49,16 +49,16 @@ class SearchBenchmark {
     haystackBytes = haystack.getBytes()
     needleBytes = needle.getBytes()
 
-    kmpContext = KnuthMorrisPratt(needleBytes)
-    shiftingBitMaskContext = ShiftingBitMask(needleBytes)
-    ahoCorasicContext = AhoCorasic(needleBytes)
+    kmpContext = KnuthMorrisPratt.init(needleBytes)
+    shiftingBitMaskContext = ShiftingBitMask.init(needleBytes)
+    ahoCorasicContext = AhoCorasic.init(needleBytes)
 
     pattern = regex.Pattern.compile(needleStr)
   }
 
   @Benchmark
   @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-  def ahoCorasic: Int = SearchEngine.indexOf(haystackBytes, ahoCorasicContext.newProcessor)
+  def ahoCorasic: Int = SearchEngine.indexOf(haystackBytes, ahoCorasicContext.newProcessor, 0)
 
   @Benchmark
   @CompilerControl(CompilerControl.Mode.DONT_INLINE)
@@ -70,7 +70,7 @@ class SearchBenchmark {
 
   @Benchmark
   @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-  def kmp: Int = SearchEngine.indexOf(haystackBytes, kmpContext.newProcessor)
+  def kmp: Int = SearchEngine.indexOf(haystackBytes, kmpContext.newProcessor, 0)
 
   @Benchmark
   @CompilerControl(CompilerControl.Mode.DONT_INLINE)
@@ -85,7 +85,7 @@ class SearchBenchmark {
 
   @Benchmark
   @CompilerControl(CompilerControl.Mode.DONT_INLINE)
-  def shiftingBitMask: Int = SearchEngine.indexOf(haystackBytes, shiftingBitMaskContext.newProcessor)
+  def shiftingBitMask: Int = SearchEngine.indexOf(haystackBytes, shiftingBitMaskContext.newProcessor, 0)
 
 }
 
