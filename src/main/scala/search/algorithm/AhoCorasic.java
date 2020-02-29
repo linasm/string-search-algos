@@ -1,5 +1,7 @@
 package search.algorithm;
 
+import com.google.common.base.Preconditions;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,9 +61,7 @@ public final class AhoCorasic implements MultiSearchAlgorithm {
   private AhoCorasic(byte[]... needles) {
 
     for (byte[] needle : needles) {
-      if (needle.length == 0) {
-        throw new IllegalArgumentException("Needle must be non empty");
-      }
+      Preconditions.checkArgument(needle.length > 0, "Needle must be non empty");
     }
 
     ArrayList<Integer> jumpTableBuilder = new ArrayList<>(ALPHABET_SIZE);
