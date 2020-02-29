@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public final class ShiftingBitMask implements SearchAlgorithm {
 
-  private final long[] bitMasks = new long[257];
+  private final long[] bitMasks = new long[8 * 256];
   private final long successBitMask;
   private final long unrolledSuccessBitMask;
   private final int needleLength;
@@ -35,15 +35,15 @@ public final class ShiftingBitMask implements SearchAlgorithm {
     @Override
     public boolean process(long value) {
 
-      currentMask = ((currentMask << 8) | 255) & bitMasks[256] &
-          ((bitMasks[(int) (value       ) & 0xFF] << 7) | 127) &
-          ((bitMasks[(int) (value >>>  8) & 0xFF] << 6) |  63) &
-          ((bitMasks[(int) (value >>> 16) & 0xFF] << 5) |  31) &
-          ((bitMasks[(int) (value >>> 24) & 0xFF] << 4) |  15) &
-          ((bitMasks[(int) (value >>> 32) & 0xFF] << 3) |   7) &
-          ((bitMasks[(int) (value >>> 40) & 0xFF] << 2) |   3) &
-          ((bitMasks[(int) (value >>> 48) & 0xFF] << 1) |   1) &
-            bitMasks[(int) (value >>> 56)];
+      currentMask = ((currentMask << 8) | 255) &
+          bitMasks[(int) (7 * 256 + ((value       ) & 0xFF))] &
+          bitMasks[(int) (6 * 256 + ((value >>>  8) & 0xFF))] &
+          bitMasks[(int) (5 * 256 + ((value >>> 16) & 0xFF))] &
+          bitMasks[(int) (4 * 256 + ((value >>> 24) & 0xFF))] &
+          bitMasks[(int) (3 * 256 + ((value >>> 32) & 0xFF))] &
+          bitMasks[(int) (2 * 256 + ((value >>> 40) & 0xFF))] &
+          bitMasks[(int) (    256 + ((value >>> 48) & 0xFF))] &
+          bitMasks[(int)             (value >>> 56)         ];
 
       final long result = currentMask & unrolledSuccessBitMask;
 
@@ -89,7 +89,7 @@ public final class ShiftingBitMask implements SearchAlgorithm {
     }
 
     final long initial = -(1L << (needle.length));
-    Arrays.fill(bitMasks, initial);
+    Arrays.fill(bitMasks, 0, 256, initial);
 
     long bit = 1L;
     for (byte c : needle) {
@@ -97,6 +97,12 @@ public final class ShiftingBitMask implements SearchAlgorithm {
       bit <<= 1;
     }
     bitMasks[256] = -1L;
+
+    for (int i = 1; i < 8; i++) {
+      for (int c = 0; c < 256; c++) {
+        bitMasks[i * 256 + c] = (bitMasks[(i - 1) * 256 + c] << 1) | 1;
+      }
+    }
 
     successBitMask = 1L << (needle.length - 1);
     unrolledSuccessBitMask = 255L << (needle.length - 1);
