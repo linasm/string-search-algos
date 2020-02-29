@@ -14,7 +14,7 @@ import search.algorithm._
 @State(Scope.Benchmark)
 @Fork(
   value = 1,
-  // Requires hsdis-amd64.dylib in jdk/Contents/Home/bin:
+  // Requires hsdis-amd64.dylib:
   //jvmArgs = Array("-XX:+UnlockDiagnosticVMOptions", "-XX:CompileCommand=print,*.shiftingBitMask", "-XX:PrintAssemblyOptions=intel")
 )
 class SearchBenchmark {
