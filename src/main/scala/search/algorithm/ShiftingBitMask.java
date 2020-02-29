@@ -6,7 +6,7 @@ public final class ShiftingBitMask implements SearchAlgorithm {
   private final long successBitMask;
   private final int needleLength;
 
-  private final static class Processor implements SearchProcessor {
+  public final static class Processor implements SearchProcessor {
 
     private final long[] bitMasks;
     private final long successBit;

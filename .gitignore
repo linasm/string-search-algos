@@ -4,4 +4,4 @@ target
 .idea_modules
 *.icode
 project/local.sbt
-
+hsdis-amd64.dylib
