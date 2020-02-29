@@ -1,60 +1,51 @@
 package search.algorithm;
 
+import java.util.Arrays;
+
 public final class ShiftingBitMask implements SearchAlgorithm {
 
   private final long[] bitMasks = new long[256];
   private final long successBitMask;
+  private final long unrolledSuccessBitMask;
   private final int needleLength;
 
   public final static class Processor implements UnrolledSearchProcessor {
 
     private final long[] bitMasks;
-    private final long successBit;
+    private final long successBitMask;
+    private final long unrolledSuccessBitMask;
     private final int needleLength;
 
     private long currentMask;
     private long previouslyFound;
 
-    private Processor(long[] bitMasks, long successBit, int needleLength) {
+    private Processor(long[] bitMasks, long successBitMask, long unrolledSuccessBitMask, int needleLength) {
       this.bitMasks = bitMasks;
-      this.successBit = successBit;
+      this.successBitMask = successBitMask;
+      this.unrolledSuccessBitMask = unrolledSuccessBitMask;
       this.needleLength = needleLength;
     }
 
     @Override
     public boolean process(byte value) {
       currentMask = ((currentMask << 1) | 1) & bitMasks[Byte.toUnsignedInt(value)];
-      return (currentMask & successBit) == 0;
+      return (currentMask & successBitMask) == 0;
     }
 
     @Override
     public boolean process(long value) {
 
-      long result;
+      currentMask = ((currentMask << 8) | 255) &
+          ((bitMasks[(int) (value       ) & 0xFF] << 7) | 127) &
+          ((bitMasks[(int) (value >>>  8) & 0xFF] << 6) |  63) &
+          ((bitMasks[(int) (value >>> 16) & 0xFF] << 5) |  31) &
+          ((bitMasks[(int) (value >>> 24) & 0xFF] << 4) |  15) &
+          ((bitMasks[(int) (value >>> 32) & 0xFF] << 3) |   7) &
+          ((bitMasks[(int) (value >>> 40) & 0xFF] << 2) |   3) &
+          ((bitMasks[(int) (value >>> 48) & 0xFF] << 1) |   1) &
+          bitMasks[(int) (value >>> 56)];
 
-      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value & 0xFF)];
-      result = currentMask & successBit;
-
-      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value >>> 8) & 0xFF];
-      result = (result << 1) | (currentMask & successBit);
-
-      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value >>> 16) & 0xFF];
-      result = (result << 1) | (currentMask & successBit);
-
-      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value >>> 24) & 0xFF];
-      result = (result << 1) | (currentMask & successBit);
-
-      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value >>> 32) & 0xFF];
-      result = (result << 1) | (currentMask & successBit);
-
-      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value >>> 40) & 0xFF];
-      result = (result << 1) | (currentMask & successBit);
-
-      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value >>> 48) & 0xFF];
-      result = (result << 1) | (currentMask & successBit);
-
-      currentMask = ((currentMask << 1) | 1) & bitMasks[(int) (value >>> 56)];
-      result = (result << 1) | (currentMask & successBit);
+      final long result = currentMask & unrolledSuccessBitMask;
 
       if (result == 0) return true;
       else {
@@ -97,6 +88,9 @@ public final class ShiftingBitMask implements SearchAlgorithm {
       throw new IllegalArgumentException("Maximum supported search pattern length is 57, got " + needle.length);
     }
 
+    final long initial = -(1L << (needle.length));
+    Arrays.fill(bitMasks, initial);
+
     long bit = 1L;
     for (byte c : needle) {
       bitMasks[Byte.toUnsignedInt(c)] |= bit;
@@ -104,12 +98,13 @@ public final class ShiftingBitMask implements SearchAlgorithm {
     }
 
     successBitMask = 1L << (needle.length - 1);
+    unrolledSuccessBitMask = 255L << (needle.length - 1);
     needleLength = needle.length;
   }
 
   @Override
   public Processor newProcessor() {
-    return new Processor(bitMasks, successBitMask, needleLength);
+    return new Processor(bitMasks, successBitMask, unrolledSuccessBitMask, needleLength);
   }
 
   public static ShiftingBitMask init(byte[] needle) {
