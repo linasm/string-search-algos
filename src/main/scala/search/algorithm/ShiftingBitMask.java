@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public final class ShiftingBitMask implements SearchAlgorithm {
 
-  private final long[] bitMasks = new long[256];
+  private final long[] bitMasks = new long[257];
   private final long successBitMask;
   private final long unrolledSuccessBitMask;
   private final int needleLength;
@@ -35,7 +35,7 @@ public final class ShiftingBitMask implements SearchAlgorithm {
     @Override
     public boolean process(long value) {
 
-      currentMask = ((currentMask << 8) | 255) &
+      currentMask = ((currentMask << 8) | 255) & bitMasks[256] &
           ((bitMasks[(int) (value       ) & 0xFF] << 7) | 127) &
           ((bitMasks[(int) (value >>>  8) & 0xFF] << 6) |  63) &
           ((bitMasks[(int) (value >>> 16) & 0xFF] << 5) |  31) &
@@ -96,6 +96,7 @@ public final class ShiftingBitMask implements SearchAlgorithm {
       bitMasks[Byte.toUnsignedInt(c)] |= bit;
       bit <<= 1;
     }
+    bitMasks[256] = -1L;
 
     successBitMask = 1L << (needle.length - 1);
     unrolledSuccessBitMask = 255L << (needle.length - 1);
