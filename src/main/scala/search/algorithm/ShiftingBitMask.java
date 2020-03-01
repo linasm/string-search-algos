@@ -2,6 +2,10 @@ package search.algorithm;
 
 import java.util.Arrays;
 
+/**
+ * String search algorithm known as Bitap / Shift-or / Shift-and / Baeza-Yates–Gonnet.
+ * https://en.wikipedia.org/wiki/Bitap_algorithm
+ */
 public final class ShiftingBitMask implements SearchAlgorithm {
 
   private final long[] bitMasks = new long[8 * 256];

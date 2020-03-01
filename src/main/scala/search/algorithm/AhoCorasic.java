@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Queue;
 
+/**
+ * Aho-Corasic string search algorithm.
+ * https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm
+ */
 public final class AhoCorasic implements MultiSearchAlgorithm {
 
   private static final int BITS_PER_SYMBOL = 8;
