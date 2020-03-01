@@ -8,7 +8,10 @@ import scala.annotation.varargs
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
-
+/**
+ * Aho-Corasic string search algorithm.
+ * https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm
+ */
 object AhoCorasic extends MultiSearchAlgorithm {
 
   final class Processor(

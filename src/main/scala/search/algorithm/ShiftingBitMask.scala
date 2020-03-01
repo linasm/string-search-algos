@@ -4,7 +4,10 @@ import java.lang.Byte.toUnsignedInt
 
 import search.engine.{SearchContext, SearchProcessor}
 
-
+/**
+ * String search algorithm known as Bitap / Shift-or / Shift-and / Baeza-Yates–Gonnet.
+ * https://en.wikipedia.org/wiki/Bitap_algorithm
+ */
 object ShiftingBitMask extends SearchAlgorithm {
 
   final class Processor(

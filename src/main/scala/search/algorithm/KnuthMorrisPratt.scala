@@ -2,7 +2,10 @@ package search.algorithm
 
 import search.engine.{SearchContext, SearchProcessor}
 
-
+/**
+ * Knuth-Morris-Pratt string search algorithm.
+ * https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
+ */
 object KnuthMorrisPratt extends SearchAlgorithm {
 
   final class Processor(
