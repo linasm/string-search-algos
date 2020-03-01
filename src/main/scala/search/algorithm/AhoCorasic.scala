@@ -7,7 +7,10 @@ import search.engine.{MultiSearchContext, MultiSearchProcessor}
 import scala.annotation.varargs
 import scala.collection.mutable
 
-
+/**
+ * Aho-Corasic string search algorithm.
+ * https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm
+ */
 object AhoCorasic extends MultiSearchAlgorithm {
 
   final class Processor(trieRoot: TrieNode, needleLengths: Array[Int]) extends MultiSearchProcessor {
