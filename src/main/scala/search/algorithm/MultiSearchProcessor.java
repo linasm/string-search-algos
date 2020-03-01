@@ -2,8 +2,6 @@ package search.algorithm;
 
 import java.nio.ByteBuffer;
 
-import static search.algorithm.MultiSearchResult.NOT_FOUND;
-
 public interface MultiSearchProcessor extends SearchProcessor {
 
   int getFoundNeedleId();
@@ -12,7 +10,7 @@ public interface MultiSearchProcessor extends SearchProcessor {
 
     final int foundAt = indexOf(haystack);
 
-    return foundAt < 0 ? NOT_FOUND : new MultiSearchResult(foundAt, getFoundNeedleId());
+    return foundAt < 0 ? MultiSearchResult.NOT_FOUND : new MultiSearchResult(foundAt, getFoundNeedleId());
   }
 
 }

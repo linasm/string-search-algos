@@ -1,5 +1,6 @@
 package benchmark
 
+import java.nio.charset.Charset
 import java.nio.{ByteBuffer, ByteOrder}
 import java.util.concurrent.TimeUnit
 
@@ -7,22 +8,19 @@ import org.openjdk.jmh.annotations._
 import search.algorithm._
 
 
-@OutputTimeUnit(TimeUnit.MICROSECONDS)
-@BenchmarkMode(Array(Mode.AverageTime))
+@OutputTimeUnit(TimeUnit.SECONDS)
+@BenchmarkMode(Array(Mode.Throughput))
 @Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
 @Warmup(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
 @State(Scope.Benchmark)
 @Fork(
   value = 1,
-  // Requires hsdis-amd64.dylib in jdk/Contents/Home/bin:
+  // Requires hsdis-amd64.dylib:
   //jvmArgs = Array("-XX:+UnlockDiagnosticVMOptions", "-XX:CompileCommand=print,*.shiftingBitMask", "-XX:PrintAssemblyOptions=intel")
 )
 class SearchBenchmark {
 
-  @Param
-  var searchInput: SearchInputType = _
-
-  private var needleBytes, haystackBytes: Array[Byte] = _
+  private var needleBytes: Array[Byte] = _
   private var haystack: ByteBuffer = _
 
   private var kmpContext: KnuthMorrisPratt = _
@@ -31,10 +29,9 @@ class SearchBenchmark {
 
   @Setup
   def setup(): Unit = {
-    haystackBytes = searchInput.getHaystack.getBytes(SearchInput.UsAscii)
-    needleBytes   = searchInput.getNeedle.getBytes(SearchInput.UsAscii)
 
-    haystack      = ByteBuffer.wrap(haystackBytes).order(ByteOrder.LITTLE_ENDIAN)
+    haystack = SearchInput.Haystack
+    needleBytes = "This text will not be found.".getBytes(Charset.forName("us-ascii"))
 
     kmpContext = KnuthMorrisPratt.init(needleBytes)
     shiftingBitMaskContext = ShiftingBitMask.init(needleBytes)
