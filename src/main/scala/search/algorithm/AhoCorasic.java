@@ -20,7 +20,7 @@ public final class AhoCorasic implements MultiSearchAlgorithm {
   private final int[] matchForNeedleId;
   private final int[] needleLengths;
 
-  private final static class Processor implements MultiSearchProcessor {
+  public final static class Processor implements MultiSearchProcessor {
 
     private final int[] jumpTable;
     private final int[] matchForNeedleId;

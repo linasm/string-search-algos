@@ -9,7 +9,7 @@ public final class KnuthMorrisPratt implements SearchAlgorithm {
   private final int[] jumpTable;
   private final byte[] needle;
 
-  private static class Processor implements SearchProcessor {
+  public final static class Processor implements SearchProcessor {
 
     private final byte[] needle;
     private final int[] jumpTable;
