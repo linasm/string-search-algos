@@ -8,7 +8,7 @@ import java.util.Arrays;
  */
 public final class ShiftingBitMask implements SearchAlgorithm {
 
-  private final long[] bitMasks = new long[8 * 256];
+  private final long[] bitMasks = new long[8 * 256 + 1];
   private final long successBitMask;
   private final long unrolledSuccessBitMask;
   private final int needleLength;
@@ -32,22 +32,22 @@ public final class ShiftingBitMask implements SearchAlgorithm {
 
     @Override
     public boolean process(byte value) {
-      currentMask = ((currentMask << 1) | 1) & bitMasks[Byte.toUnsignedInt(value)];
+      currentMask = ((currentMask << 1) | 1) & bitMasks[Byte.toUnsignedInt(value) << 3];
       return (currentMask & successBitMask) == 0;
     }
 
     @Override
     public boolean process(long value) {
 
-      currentMask = ((currentMask << 8) | 255) &
-          bitMasks[(int) (7 * 256 + ((value       ) & 0xFF))] &
-          bitMasks[(int) (6 * 256 + ((value >>>  8) & 0xFF))] &
-          bitMasks[(int) (5 * 256 + ((value >>> 16) & 0xFF))] &
-          bitMasks[(int) (4 * 256 + ((value >>> 24) & 0xFF))] &
-          bitMasks[(int) (3 * 256 + ((value >>> 32) & 0xFF))] &
-          bitMasks[(int) (2 * 256 + ((value >>> 40) & 0xFF))] &
-          bitMasks[(int) (    256 + ((value >>> 48) & 0xFF))] &
-          bitMasks[(int)             (value >>> 56)         ];
+      currentMask = ((currentMask << 8) | 255) & bitMasks[8 * 256] &
+          bitMasks[(int) (((value  <<  3) & (0xFF << 3)) + 7)] &
+          bitMasks[(int) (((value >>>  5) & (0xFF << 3)) + 6)] &
+          bitMasks[(int) (((value >>> 13) & (0xFF << 3)) + 5)] &
+          bitMasks[(int) (((value >>> 21) & (0xFF << 3)) + 4)] &
+          bitMasks[(int) (((value >>> 29) & (0xFF << 3)) + 3)] &
+          bitMasks[(int) (((value >>> 37) & (0xFF << 3)) + 2)] &
+          bitMasks[(int) (((value >>> 45) & (0xFF << 3)) + 1)] &
+          bitMasks[(int)  ((value >>> 53) & (0xFF << 3))     ];
 
       final long result = currentMask & unrolledSuccessBitMask;
 
@@ -93,17 +93,18 @@ public final class ShiftingBitMask implements SearchAlgorithm {
     }
 
     final long initial = -(1L << (needle.length));
-    Arrays.fill(bitMasks, 0, 256, initial);
+    Arrays.fill(bitMasks, initial);
+    bitMasks[8 * 256] = -1L;
 
     long bit = 1L;
     for (byte c : needle) {
-      bitMasks[Byte.toUnsignedInt(c)] |= bit;
+      bitMasks[Byte.toUnsignedInt(c) << 3] |= bit;
       bit <<= 1;
     }
 
     for (int i = 1; i < 8; i++) {
       for (int c = 0; c < 256; c++) {
-        bitMasks[i * 256 + c] = (bitMasks[(i - 1) * 256 + c] << 1) | 1;
+        bitMasks[i + (c << 3)] = (bitMasks[i - 1 + (c << 3)] << 1) | 1;
       }
     }
 
