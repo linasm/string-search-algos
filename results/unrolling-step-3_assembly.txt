@@ -1,0 +1,248 @@
+....[Hottest Region 1]..............................................................................
+jvmci, level 4, search.algorithm.UnrolledSearchProcessor::indexOf, version 839 (339 bytes)
+             0x00000001236eca2f: mov    r8d,DWORD PTR [rsp+0x30]
+             0x00000001236eca34: mov    QWORD PTR [rsi+0x20],rdi  ;*putfield currentMask {reexecute=0 rethrow=0 return_oop=0}
+                                                           ; - search.algorithm.ShiftingBitMask$Processor::process@176 (line 38)
+                                                           ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+             0x00000001236eca38: mov    rbx,QWORD PTR [rsp+0x8]
+             0x00000001236eca3d: mov    rcx,QWORD PTR [rsp+0x38]
+         ╭   0x00000001236eca42: jmp    0x00000001236ecb8f  ;*aload_1 {reexecute=0 rethrow=0 return_oop=0}
+         │                                                 ; - search.algorithm.UnrolledSearchProcessor::indexOf@36 (line 27)
+         │   0x00000001236eca47: nop    WORD PTR [rax+rax*1+0x0]  ;*ireturn {reexecute=0 rethrow=0 return_oop=0}
+         │                                                 ; - search.algorithm.UnrolledSearchProcessor::indexOf@75 (line 33)
+  1.08%  │↗  0x00000001236eca50: lea    r13d,[r8+0x8]      ;*iadd {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - java.nio.Buffer::nextGetIndex@32 (line 649)
+         ││                                                ; - java.nio.HeapByteBuffer::getLong@11 (line 439)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@47 (line 28)
+  1.16%  ││  0x00000001236eca54: mov    DWORD PTR [rdx+0x18],r13d
+         ││                                                ;*putfield position {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - java.nio.Buffer::nextGetIndex@33 (line 649)
+         ││                                                ; - java.nio.HeapByteBuffer::getLong@11 (line 439)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@47 (line 28)
+  1.38%  ││  0x00000001236eca58: movsxd r14,r8d            ;*i2l {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - java.nio.HeapByteBuffer::getLong@14 (line 439)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@47 (line 28)
+  1.01%  ││  0x00000001236eca5b: add    r14,rcx            ;*ladd {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - java.nio.HeapByteBuffer::byteOffset@5 (line 157)
+         ││                                                ; - java.nio.HeapByteBuffer::getLong@15 (line 439)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@47 (line 28)
+  0.91%  ││  0x00000001236eca5e: mov    r14,QWORD PTR [r14+r9*8]  ;* unwind (locked if synchronized)
+         ││                                                ; - jdk.internal.misc.Unsafe::getLongUnaligned@-3
+         ││                                                ; - jdk.internal.misc.Unsafe::getLongUnaligned@5 (line 3432)
+         ││                                                ; - java.nio.HeapByteBuffer::getLong@22 (line 439)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@47 (line 28)
+  1.98%  ││  0x00000001236eca62: mov    r10d,r14d          ;*l2i {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@26 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.02%  ││  0x00000001236eca65: and    r10d,0xff          ;*iand {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@30 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.20%  ││  0x00000001236eca6c: mov    r10,QWORD PTR [rbx+r10*8+0x10]
+         ││                                                ;*laload {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@31 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  4.92%  ││  0x00000001236eca71: mov    DWORD PTR [rsp+0x30],r8d
+  1.04%  ││  0x00000001236eca76: mov    r8,r14
+  0.58%  ││  0x00000001236eca79: shr    r8,0x8             ;*lushr {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@47 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.76%  ││  0x00000001236eca7d: mov    r8d,r8d            ;*l2i {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@48 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  2.09%  ││  0x00000001236eca80: and    r8d,0xff           ;*iand {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@52 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.63%  ││  0x00000001236eca87: mov    r8,QWORD PTR [rbx+r8*8+0x10]
+         ││                                                ;*laload {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@53 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  3.85%  ││  0x00000001236eca8c: mov    r11,r14
+  0.92%  ││  0x00000001236eca8f: shr    r11,0x10           ;*lushr {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@69 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.65%  ││  0x00000001236eca93: mov    r11d,r11d          ;*l2i {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@70 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.43%  ││  0x00000001236eca96: and    r11d,0xff          ;*iand {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@74 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  2.44%  ││  0x00000001236eca9d: mov    r11,QWORD PTR [rbx+r11*8+0x10]
+         ││                                                ;*laload {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@75 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  2.08%  ││  0x00000001236ecaa2: mov    r9,r14
+  0.61%  ││  0x00000001236ecaa5: shr    r9,0x18            ;*lushr {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@90 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.44%  ││  0x00000001236ecaa9: mov    r9d,r9d            ;*l2i {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@91 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.75%  ││  0x00000001236ecaac: and    r9d,0xff           ;*iand {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@95 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.48%  ││  0x00000001236ecab3: mov    r9,QWORD PTR [rbx+r9*8+0x10]
+         ││                                                ;*laload {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@96 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.94%  ││  0x00000001236ecab8: mov    rcx,r14
+  0.54%  ││  0x00000001236ecabb: shr    rcx,0x20           ;*lushr {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@111 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.25%  ││  0x00000001236ecabf: mov    ecx,ecx            ;*l2i {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@112 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.30%  ││  0x00000001236ecac1: and    ecx,0xff           ;*iand {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@116 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.55%  ││  0x00000001236ecac7: mov    rcx,QWORD PTR [rbx+rcx*8+0x10]
+         ││                                                ;*laload {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@117 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.77%  ││  0x00000001236ecacc: mov    rdx,r14
+  1.10%  ││  0x00000001236ecacf: shr    rdx,0x28           ;*lushr {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@132 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.92%  ││  0x00000001236ecad3: mov    edx,edx            ;*l2i {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@133 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.08%  ││  0x00000001236ecad5: and    edx,0xff           ;*iand {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@137 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.06%  ││  0x00000001236ecadb: mov    rdx,QWORD PTR [rbx+rdx*8+0x10]
+         ││                                                ;*laload {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@138 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.79%  ││  0x00000001236ecae0: mov    DWORD PTR [rsp+0x2c],r13d
+  0.92%  ││  0x00000001236ecae5: mov    r13,r14
+  1.04%  ││  0x00000001236ecae8: shr    r13,0x30           ;*lushr {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@153 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.98%  ││  0x00000001236ecaec: mov    r13d,r13d          ;*l2i {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@154 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.48%  ││  0x00000001236ecaef: and    r13d,0xff          ;*iand {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@158 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.90%  ││  0x00000001236ecaf6: mov    r13,QWORD PTR [rbx+r13*8+0x10]
+         ││                                                ;*laload {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@159 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.38%  ││  0x00000001236ecafb: mov    rsi,r14
+  0.88%  ││  0x00000001236ecafe: shr    rsi,0x38           ;*lushr {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@172 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.32%  ││  0x00000001236ecb02: shl    rdi,0x8            ;*lshl {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@7 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.93%  ││  0x00000001236ecb06: or     rdi,0xff           ;*lor {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@11 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.12%  ││  0x00000001236ecb0d: and    rdi,rbp            ;*land {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@20 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.98%  ││  0x00000001236ecb10: shl    r10,0x7            ;*lshl {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@34 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.24%  ││  0x00000001236ecb14: or     r10,0x7f           ;*lor {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@38 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.00%  ││  0x00000001236ecb18: and    rdi,r10            ;*land {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@39 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.23%  ││  0x00000001236ecb1b: shl    r8,0x6             ;*lshl {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@56 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.00%  ││  0x00000001236ecb1f: or     r8,0x3f            ;*lor {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@60 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.35%  ││  0x00000001236ecb23: and    rdi,r8             ;*land {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@61 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.06%  ││  0x00000001236ecb26: shl    r11,0x5            ;*lshl {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@77 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.24%  ││  0x00000001236ecb2a: or     r11,0x1f           ;*lor {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@81 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.86%  ││  0x00000001236ecb2e: and    rdi,r11            ;*land {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@82 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.41%  ││  0x00000001236ecb31: shl    r9,0x4             ;*lshl {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@98 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.94%  ││  0x00000001236ecb35: or     r9,0xf             ;*lor {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@102 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.12%  ││  0x00000001236ecb39: and    rdi,r9             ;*land {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@103 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.03%  ││  0x00000001236ecb3c: shl    rcx,0x3            ;*lshl {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@119 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.29%  ││  0x00000001236ecb40: or     rcx,0x7            ;*lor {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@123 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.89%  ││  0x00000001236ecb44: and    rdi,rcx            ;*land {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@124 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.14%  ││  0x00000001236ecb47: shl    rdx,0x2            ;*lshl {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@140 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.96%  ││  0x00000001236ecb4b: or     rdx,0x3            ;*lor {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@144 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.35%  ││  0x00000001236ecb4f: and    rdi,rdx            ;*land {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@145 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.89%  ││  0x00000001236ecb52: shl    r13,1              ;*lshl {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@161 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.11%  ││  0x00000001236ecb55: or     r13,0x1            ;*lor {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@163 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  0.89%  ││  0x00000001236ecb59: and    rdi,r13            ;*land {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@164 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.37%  ││  0x00000001236ecb5c: and    rdi,QWORD PTR [rbx+rsi*8+0x10]
+         ││                                                ;*land {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@175 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.14%  ││  0x00000001236ecb61: test   rdi,rax
+         ││  0x00000001236ecb64: jne    0x00000001236ecd71  ;*ifne {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@192 (line 50)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.23%  ││  0x00000001236ecb6a: mov    r13d,DWORD PTR [rsp+0x2c]
+  0.89%  ││  0x00000001236ecb6f: mov    rsi,QWORD PTR [rsp+0x20]
+  1.27%  ││  0x00000001236ecb74: mov    QWORD PTR [rsi+0x20],rdi  ;*putfield currentMask {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@176 (line 38)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.53%  ││  0x00000001236ecb78: mov    r10,QWORD PTR [r15+0x108]
+         ││                                                ; ImmutableOopMap{rbx=Oop rsi=Oop [0]=Oop [20]=NarrowOop [24]=Oop [32]=Oop }
+         ││                                                ;*aload_0 {reexecute=1 rethrow=0 return_oop=0}
+         ││                                                ; - (reexecute) search.algorithm.ShiftingBitMask$Processor::process@179 (line 48)
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@50 (line 28)
+  1.04%  ││  0x00000001236ecb7f: test   DWORD PTR [r10],eax  ;   {poll}
+  1.00%  ││  0x00000001236ecb82: mov    r8d,r13d
+  1.23%  ││  0x00000001236ecb85: mov    rcx,QWORD PTR [rsp+0x38]
+  1.04%  ││  0x00000001236ecb8a: mov    r9d,DWORD PTR [rsp+0x14]  ;*aload_1 {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@36 (line 27)
+  1.26%  ↘│  0x00000001236ecb8f: mov    r11d,DWORD PTR [rsp+0x44]
+  0.91%   │  0x00000001236ecb94: mov    rdx,QWORD PTR [rsp+0x18]
+  1.16%   │  0x00000001236ecb99: mov    r13d,r11d
+  0.96%   │  0x00000001236ecb9c: sub    r13d,r8d           ;*isub {reexecute=0 rethrow=0 return_oop=0}
+          │                                                ; - java.nio.Buffer::nextGetIndex@8 (line 646)
+          │                                                ; - java.nio.HeapByteBuffer::getLong@11 (line 439)
+          │                                                ; - search.algorithm.UnrolledSearchProcessor::indexOf@47 (line 28)
+  1.05%   │  0x00000001236ecb9f: cmp    r13d,0x8
+  0.00%   ╰  0x00000001236ecba3: jge    0x00000001236eca50  ;*if_icmplt {reexecute=0 rethrow=0 return_oop=0}
+                                                           ; - search.algorithm.UnrolledSearchProcessor::indexOf@42 (line 27)
+             0x00000001236ecba9: mov    rsi,QWORD PTR [rsp+0x20]
+             0x00000001236ecbae: cmp    r11d,r8d
+             0x00000001236ecbb1: jg     0x00000001236ecbcf  ;*ifeq {reexecute=0 rethrow=0 return_oop=0}
+                                                           ; - search.algorithm.SearchProcessor::indexOf@4 (line 15)
+                                                           ; - search.algorithm.UnrolledSearchProcessor::indexOf@72 (line 33)
+             0x00000001236ecbb7: mov    eax,0xffffffff     ;*ireturn {reexecute=0 rethrow=0 return_oop=0}
+                                                           ; - search.algorithm.UnrolledSearchProcessor::indexOf@75 (line 33)
+             0x00000001236ecbbc: mov    rbp,QWORD PTR [rsp+0x50]
+             0x00000001236ecbc1: add    rsp,0x58
+....................................................................................................

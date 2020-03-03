@@ -1,0 +1,68 @@
+....[Hottest Region 1]..............................................................................
+jvmci, level 4, search.algorithm.SearchProcessor::indexOf, version 841 (70 bytes)
+                                                           ; - search.algorithm.SearchProcessor::indexOf@9 (line 16)
+             0x000000011ce87b06: mov    QWORD PTR [rsi+0x18],rbp  ;*putfield currentMask {reexecute=0 rethrow=0 return_oop=0}
+                                                           ; - search.algorithm.ShiftingBitMask$Processor::process@19 (line 25)
+                                                           ; - search.algorithm.SearchProcessor::indexOf@12 (line 16)
+             0x000000011ce87b0a: mov    rcx,rbp
+         ╭   0x000000011ce87b0d: jmp    0x000000011ce87b66  ;*aload_1 {reexecute=0 rethrow=0 return_oop=0}
+         │                                                 ; - search.algorithm.SearchProcessor::indexOf@0 (line 15)
+         │   0x000000011ce87b12: data16 nop WORD PTR [rax+rax*1+0x0]
+         │   0x000000011ce87b1c: data16 data16 xchg ax,ax  ;*ifeq {reexecute=0 rethrow=0 return_oop=0}
+         │                                                 ; - search.algorithm.SearchProcessor::indexOf@4 (line 15)
+ 12.75%  │↗  0x000000011ce87b20: mov    ebp,r10d
+  4.07%  ││  0x000000011ce87b23: add    ebp,r9d            ;*iadd {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - java.nio.HeapByteBuffer::ix@5 (line 152)
+         ││                                                ; - java.nio.HeapByteBuffer::get@9 (line 162)
+         ││                                                ; - search.algorithm.SearchProcessor::indexOf@9 (line 16)
+  2.35%  ││  0x000000011ce87b26: cmp    r8d,ebp
+         ││  0x000000011ce87b29: jbe    0x000000011ce87be7
+  2.74%  ││  0x000000011ce87b2f: movsx  ebp,BYTE PTR [rbp+r11*8+0x10]
+         ││                                                ;*baload {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - java.nio.HeapByteBuffer::get@12 (line 162)
+         ││                                                ; - search.algorithm.SearchProcessor::indexOf@9 (line 16)
+ 14.22%  ││  0x000000011ce87b35: movzx  r14d,bpl           ;*iand {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - java.lang.Byte::toUnsignedInt@4 (line 510)
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@14 (line 25)
+         ││                                                ; - search.algorithm.SearchProcessor::indexOf@12 (line 16)
+  4.35%  ││  0x000000011ce87b39: cmp    edi,r14d
+         ││  0x000000011ce87b3c: jbe    0x000000011ce87bd7
+  2.74%  ││  0x000000011ce87b42: movzx  ebp,bpl            ;*laload {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@17 (line 25)
+         ││                                                ; - search.algorithm.SearchProcessor::indexOf@12 (line 16)
+  2.13%  ││  0x000000011ce87b46: shl    rcx,1              ;*lshl {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@6 (line 25)
+         ││                                                ; - search.algorithm.SearchProcessor::indexOf@12 (line 16)
+ 12.63%  ││  0x000000011ce87b49: or     rcx,0x1            ;*lor {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@8 (line 25)
+         ││                                                ; - search.algorithm.SearchProcessor::indexOf@12 (line 16)
+  4.24%  ││  0x000000011ce87b4d: and    rcx,QWORD PTR [rbx+rbp*8+0x10]
+         ││                                                ;*land {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@18 (line 25)
+         ││                                                ; - search.algorithm.SearchProcessor::indexOf@12 (line 16)
+ 14.08%  ││  0x000000011ce87b52: test   rcx,r13
+  0.01%  ││  0x000000011ce87b55: jne    0x000000011ce87bb9  ;*ifne {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@33 (line 26)
+         ││                                                ; - search.algorithm.SearchProcessor::indexOf@12 (line 16)
+ 14.32%  ││  0x000000011ce87b5b: inc    r10d               ;*iadd {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - java.nio.Buffer::nextGetIndex@26 (line 642)
+         ││                                                ; - java.nio.HeapByteBuffer::get@6 (line 162)
+         ││                                                ; - search.algorithm.SearchProcessor::indexOf@9 (line 16)
+  3.93%  ││  0x000000011ce87b5e: mov    DWORD PTR [rdx+0x18],r10d
+         ││                                                ;*putfield position {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - java.nio.Buffer::nextGetIndex@27 (line 642)
+         ││                                                ; - java.nio.HeapByteBuffer::get@6 (line 162)
+         ││                                                ; - search.algorithm.SearchProcessor::indexOf@9 (line 16)
+  2.69%  ││  0x000000011ce87b62: mov    QWORD PTR [rsi+0x18],rcx  ;*putfield currentMask {reexecute=0 rethrow=0 return_oop=0}
+         ││                                                ; - search.algorithm.ShiftingBitMask$Processor::process@19 (line 25)
+         ││                                                ; - search.algorithm.SearchProcessor::indexOf@12 (line 16)
+  2.28%  ↘│  0x000000011ce87b66: cmp    eax,r10d
+          ╰  0x000000011ce87b69: jg     0x000000011ce87b20  ;*ifeq {reexecute=0 rethrow=0 return_oop=0}
+                                                           ; - search.algorithm.SearchProcessor::indexOf@4 (line 15)
+             0x000000011ce87b6b: mov    eax,0xffffffff     ;*ireturn {reexecute=0 rethrow=0 return_oop=0}
+                                                           ; - search.algorithm.SearchProcessor::indexOf@33 (line 21)
+             0x000000011ce87b70: mov    rbp,QWORD PTR [rsp+0x10]
+             0x000000011ce87b75: add    rsp,0x18
+             0x000000011ce87b79: mov    rcx,QWORD PTR [r15+0x108]
+             0x000000011ce87b80: test   DWORD PTR [rcx],eax  ;   {poll_return}
+....................................................................................................
